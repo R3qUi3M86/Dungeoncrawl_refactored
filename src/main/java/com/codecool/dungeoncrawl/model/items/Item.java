@@ -1,0 +1,40 @@
+package com.codecool.dungeoncrawl.model.items;
+
+import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.model.Drawable;
+import com.codecool.dungeoncrawl.model.actors.Player;
+
+public abstract class Item implements Drawable {
+    boolean consumable = false;
+
+    private Cell cell;
+
+    public Item(Cell cell) {
+        this.cell = cell;
+        this.cell.setItem(this);
+    }
+
+    public Item() {}
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public int getX() {
+        return cell.getX();
+    }
+
+    public int getY() {
+        return cell.getY();
+    }
+
+    public void useItem(Player player) {}
+
+    public boolean isConsumable() {
+        return consumable;
+    }
+
+    void setConsumable() {
+        this.consumable = true;
+    }
+}
