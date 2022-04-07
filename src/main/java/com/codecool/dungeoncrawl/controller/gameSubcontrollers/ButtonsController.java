@@ -1,7 +1,8 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers;
 
 import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
+import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
 import com.codecool.dungeoncrawl.model.items.Item;
 import javafx.scene.control.Button;
@@ -48,7 +49,7 @@ public class ButtonsController {
         Item item = player.getCell().getItem();
         player.getBackpack().addItem(item);
         player.getCell().removeItem();
-        GameController.getInstance().playTurn();
+        GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 
     private void useItEventHandler() {
@@ -56,11 +57,10 @@ public class ButtonsController {
         Item item = player.getCell().getItem();
         item.useItem(player);
         player.getCell().removeItem();
+        GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 
     private void enterEventHandler(){
-        enterButton.setDisable(true);
-        GameController.getInstance().setNextMap();
         GameController.getInstance().travelToNextLevel();
     }
 }

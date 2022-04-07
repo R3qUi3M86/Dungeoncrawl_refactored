@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.actors;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.List;
 public class Rat extends Actor {
     private int moveTimer = 0;
     private final int moveTimerLimit = 2;
-    private final List<MonsterMovement> moves = Arrays.asList(MonsterMovement.M_UP, MonsterMovement.M_RIGHT, MonsterMovement.M_DOWN, MonsterMovement.M_LEFT);
-    private MonsterMovement lastMove = moves.get((int) (Math.random() * 4));
+    private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
+    private MovementDir lastMove = moves.get((int) (Math.random() * 4));
 
     public Rat(Cell cell) {
         super(cell);
@@ -23,7 +23,7 @@ public class Rat extends Actor {
             moveTimer++;
         } else {
             int i = 0;
-            for (MonsterMovement moveDir : moves) {
+            for (MovementDir moveDir : moves) {
                 if (lastMove == moveDir) {
                     if (i + 1 == moves.size()) {
                         move(moves.get(0).getDx(), moves.get(0).getDy());
@@ -41,7 +41,7 @@ public class Rat extends Actor {
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "rat";
     }
 

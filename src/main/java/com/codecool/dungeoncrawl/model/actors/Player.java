@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.actors;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Sword;
 import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
@@ -25,7 +25,7 @@ public class Player extends Actor {
     @Override
     public void moveActor() {}
 
-    public String getTileName() {
+    public String getCellImageName() {
         return "player";
     }
 
@@ -37,7 +37,7 @@ public class Player extends Actor {
     public int getAttack(){
         for ( BackpackCell backpackCell : backpack.getBackpackItems().keySet() ) {
             Item item = backpack.getBackpackItems().get(backpackCell);
-            if (Objects.equals(item.getTileName(), "sword")) { // instanceof interface weapon
+            if (Objects.equals(item.getCellImageName(), "sword")) { // instanceof interface weapon
                 Sword sword = (Sword) item;
                 return attack + sword.getDamageModifier();
             }

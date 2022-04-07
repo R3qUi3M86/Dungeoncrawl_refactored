@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.model.Cell;
-import com.codecool.dungeoncrawl.model.CellType;
+import com.codecool.dungeoncrawl.display.cells.Cell;
+import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -35,7 +35,7 @@ public class Util {
         ArrayList<Cell> adjacentCells = getAdjacentCells(cell);
         ArrayList<Cell> adjacentCellsCopy = new ArrayList<>(adjacentCells);
         for (Cell adjacentCell : adjacentCellsCopy) {
-            if (adjacentCell.getType() != CellType.FLOOR || adjacentCell.getActor() != null) {
+            if (adjacentCell.getType() != CellType.WALKABLE || adjacentCell.getActor() != null) {
                 adjacentCells.remove(adjacentCell);
             }
         }

@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.items;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 public class Key extends Item{
 
@@ -9,7 +9,7 @@ public class Key extends Item{
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "key";
     }
 

@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.items;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.Player;
 
 public class Booze extends Item{
@@ -10,7 +10,7 @@ public class Booze extends Item{
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "booze";
     }
 

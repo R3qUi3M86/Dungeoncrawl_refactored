@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.model.decor;
 
-import com.codecool.dungeoncrawl.model.Cell;
-import com.codecool.dungeoncrawl.model.Drawable;
+import com.codecool.dungeoncrawl.display.cells.Cell;
+import com.codecool.dungeoncrawl.display.Drawable;
 import com.codecool.dungeoncrawl.model.actors.Player;
 
 public abstract class Decor implements Drawable {

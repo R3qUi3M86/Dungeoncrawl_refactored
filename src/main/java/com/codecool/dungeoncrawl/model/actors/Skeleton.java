@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.actors;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Skeleton extends Actor {
     private int moveTimer = 0;
     private final int moveTimerLimit = 1;
-    private final List<MonsterMovement> moves = Arrays.asList(MonsterMovement.M_UP, MonsterMovement.M_RIGHT, MonsterMovement.M_DOWN, MonsterMovement.M_LEFT);
+    private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
     private Actor master;
 
     public Skeleton(Cell cell) {
@@ -28,14 +28,14 @@ public class Skeleton extends Actor {
         if (moveTimer < moveTimerLimit) {
             moveTimer++;
         } else {
-            MonsterMovement monsterMovement = moves.get((int) (Math.random() * 4));
+            MovementDir monsterMovement = moves.get((int) (Math.random() * 4));
             move(monsterMovement.getDx(), monsterMovement.getDy());
             moveTimer = 0;
         }
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "skeleton";
     }
 

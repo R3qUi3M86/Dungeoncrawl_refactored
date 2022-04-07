@@ -4,8 +4,11 @@ import com.codecool.dungeoncrawl.display.MapGUI;
 import com.codecool.dungeoncrawl.display.PlayerGUI;
 import com.codecool.dungeoncrawl.display.tiles.Tile;
 import com.codecool.dungeoncrawl.display.tiles.Tiles;
-import com.codecool.dungeoncrawl.model.Drawable;
-import com.codecool.dungeoncrawl.model.GameMap;
+import com.codecool.dungeoncrawl.display.Drawable;
+import com.codecool.dungeoncrawl.model.actors.Actor;
+import com.codecool.dungeoncrawl.model.decor.Decor;
+import com.codecool.dungeoncrawl.model.items.Item;
+import com.codecool.dungeoncrawl.model.map.GameMap;
 import com.codecool.dungeoncrawl.model.actors.Player;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +21,7 @@ public class ViewController {
     private final MapGUI mapGUI;
     private final PlayerGUI playerGUI;
     private Scene currentScene;
+    BorderPane borderPane;
 
     private ViewController() {
         mapGUI = new MapGUI();
@@ -34,11 +38,10 @@ public class ViewController {
     }
 
     public void initWindow(Stage primaryStage) {
-        BorderPane borderPane = new BorderPane();
+        borderPane = new BorderPane();
         currentScene = new Scene(borderPane);
         borderPane.setCenter(mapGUI.getCanvas());
         borderPane.setRight(playerGUI.getUi());
-
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.setScene(currentScene);
@@ -47,12 +50,17 @@ public class ViewController {
     }
 
     public void refresh(GameMap gameMap, Player player) {
-        refreshMapGUI(gameMap);
         refreshPlayerGUI(player);
+        refreshMapGUI(gameMap);
+        borderPane.requestFocus();
     }
 
     private void refreshMapGUI(GameMap gameMap){
-        mapGUI.drawMap(gameMap);
+        Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
+
+        mapGUI.drawMap(gameMap, actorMatrix, itemMatrix, decorMatrix);
     }
 
     private void refreshPlayerGUI(Player player){
@@ -60,7 +68,7 @@ public class ViewController {
     }
 
     public void drawTile(GraphicsContext context, Drawable d, int x, int y) {
-        Tile tile = Tiles.getTileMap().get(d.getTileName());
+        Tile tile = Tiles.getTileMap().get(d.getCellImageName());
         context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
                 x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
     }

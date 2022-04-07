@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.decor;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 public class SpiderWeb extends Decor {
 
@@ -9,7 +9,7 @@ public class SpiderWeb extends Decor {
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "spiderweb";
     }
 

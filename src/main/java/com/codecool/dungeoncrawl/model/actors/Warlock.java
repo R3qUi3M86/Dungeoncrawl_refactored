@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.model.actors;
 
 import com.codecool.dungeoncrawl.Util;
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ public class Warlock extends Actor {
     private int spawnMinionTimer = 0;
     private final int spawnMinionTimerLimit = 6;
     private final int minionLimit = 2;
-    private final List<MonsterMovement> moves = Arrays.asList(MonsterMovement.M_UP, MonsterMovement.M_RIGHT, MonsterMovement.M_DOWN, MonsterMovement.M_LEFT);
+    private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
 
     public Warlock(Cell cell) {
         super(cell);
@@ -28,14 +28,14 @@ public class Warlock extends Actor {
         if (moveTimer < moveTimerLimit) {
             moveTimer++;
         } else {
-            MonsterMovement monsterMovement = moves.get((int) (Math.random() * 4));
+            MovementDir monsterMovement = moves.get((int) (Math.random() * 4));
             move(monsterMovement.getDx(), monsterMovement.getDy());
             moveTimer = 0;
         }
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "warlock";
     }
 

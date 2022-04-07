@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.model.CellType;
-import com.codecool.dungeoncrawl.model.GameMap;
+import com.codecool.dungeoncrawl.display.cells.CellType;
+import com.codecool.dungeoncrawl.model.map.GameMap;
 
 class ActorTest {
-    GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
+//    GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
 
 //    @Test
 //    void moveUpdatesCells() {

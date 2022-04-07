@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.items.backpack;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 
 public class SmallBackpack extends Backpack {
     public SmallBackpack(Cell cell) {
@@ -22,7 +22,7 @@ public class SmallBackpack extends Backpack {
     }
 
     @Override
-    public String getTileName() {
+    public String getCellImageName() {
         return "small backpack";
     }
 }

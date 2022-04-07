@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model.items.backpack;
 
-import com.codecool.dungeoncrawl.model.Cell;
+import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.items.Item;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public abstract class Backpack extends Item {
         for (int i = 0; i < capacity[0]; i++){
             for (int j = 0; j < capacity[1]; j++){
                 BackpackCell backpackCell = new BackpackCell(i, j);
-                if (Objects.equals(backpackItems.get(backpackCell).getTileName(), "empty")) {
+                if (Objects.equals(backpackItems.get(backpackCell).getCellImageName(), "empty")) {
                     backpackItems.put(backpackCell, item);
                     return OperationResult.SUCCESSFUL;
                 }

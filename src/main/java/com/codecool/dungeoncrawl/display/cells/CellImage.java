@@ -1,6 +1,6 @@
-package com.codecool.dungeoncrawl.model;
+package com.codecool.dungeoncrawl.display.cells;
 
-public enum CellType {
+public enum CellImage {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),
@@ -12,11 +12,11 @@ public enum CellType {
 
     private final String tileName;
 
-    CellType(String tileName) {
+    CellImage(String tileName) {
         this.tileName = tileName;
     }
 
-    public String getTileName() {
+    public String getName() {
         return tileName;
     }
 }
