@@ -22,9 +22,6 @@ public class Player extends Actor {
         this.health = 15;
     }
 
-    @Override
-    public void moveActor() {}
-
     public String getCellImageName() {
         return "player";
     }
@@ -65,6 +62,7 @@ public class Player extends Actor {
         }
     }
 
+    @Override
     public void resolveEffects(){
         if (wasted){
             drunkCounter++;

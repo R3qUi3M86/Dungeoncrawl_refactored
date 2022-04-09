@@ -1,15 +1,18 @@
 package com.codecool.dungeoncrawl.model.actors;
 
+import com.codecool.dungeoncrawl.controller.GameController;
+import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.MoveSubcontroller;
 import com.codecool.dungeoncrawl.display.cells.Cell;
+import com.codecool.dungeoncrawl.display.cells.CellType;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Skeleton extends Actor {
+public class Skeleton extends Actor implements Mob, Minion{
     private int moveTimer = 0;
     private final int moveTimerLimit = 1;
     private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
-    private Actor master;
+    public Summoner master;
 
     public Skeleton(Cell cell) {
         super(cell);
@@ -17,21 +20,22 @@ public class Skeleton extends Actor {
         health = 10;
     }
 
-    public Skeleton(Cell cell, Actor master) {
+    public Skeleton(Cell cell, Summoner master) {
         super(cell);
+        this.minion = true;
         this.attack = 3;
         this.master = master;
     }
 
     @Override
-    public void moveActor() {
+    public MovementDir getPotentialMoveDirection() {
         if (moveTimer < moveTimerLimit) {
             moveTimer++;
         } else {
-            MovementDir monsterMovement = moves.get((int) (Math.random() * 4));
-            move(monsterMovement.getDx(), monsterMovement.getDy());
             moveTimer = 0;
+            return GameController.getInstance().getActorController().getMoveSubcontroller().moveInRandomDirection(moves);
         }
+        return MovementDir.M_NONE;
     }
 
     @Override
@@ -45,15 +49,7 @@ public class Skeleton extends Actor {
     }
 
     @Override
-    void killActor() {
-        super.killActor();
-        if (master != null){
-            Warlock warlock = (Warlock) master;
-            warlock.getMinions().remove(this);
-        }
-    }
-
-    public Actor getMaster() {
+    public Summoner getMaster() {
         return master;
     }
 }

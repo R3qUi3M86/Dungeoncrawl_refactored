@@ -1,19 +1,13 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers;
 
-import com.codecool.dungeoncrawl.display.cells.Cell;
+import com.codecool.dungeoncrawl.model.actors.Actor;
 
 public class CombatSubcontroller {
-    private void combat(Cell nextCell) {
-        if (!this.getTileName().equals("player") && !nextCell.getActor().getTileName().equals("player"))
-            return;
-        nextCell.getActor().takeDamage(getAttack());
-        if (nextCell.getActor().isAlive()){
-            takeDamage(nextCell.getActor().getAttack());
-            if (!alive){
-                cell.setActor(null);
-            }
-        } else {
-            nextCell.setActor(null);
+    public void resolveActorsCombat(Actor attacker, Actor defender) {
+        if (attacker != defender) {
+            defender.takeDamage(attacker.getAttack());
+            if (defender.isAlive())
+                attacker.takeDamage(defender.getAttack());
         }
     }
 }

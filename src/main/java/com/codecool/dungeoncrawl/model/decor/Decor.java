@@ -11,7 +11,6 @@ public abstract class Decor implements Drawable {
 
     public Decor(Cell cell) {
         this.cell = cell;
-        this.cell.setDecor(this);
     }
 
     public Decor() {}

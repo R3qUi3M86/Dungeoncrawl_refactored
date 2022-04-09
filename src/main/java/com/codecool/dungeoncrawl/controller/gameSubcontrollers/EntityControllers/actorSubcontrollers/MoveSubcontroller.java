@@ -11,6 +11,8 @@ import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
 import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
 import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MoveSubcontroller {
@@ -22,44 +24,33 @@ public class MoveSubcontroller {
         actorMatrix[actor.getX()][actor.getY()] = actor;
     }
 
-    public void move(int dx, int dy) {
-        if (!isActorOutOfMap(dx, dy)){
-            Cell nextCell = cell.getNeighboringCell(dx, dy);
-            if (nextCell.getType() == CellType.COLLISION) {
-                return;
-            } else if (nextCell.getActor() != null) {
-                combat(nextCell);
-                return;
-            } else if (nextCell.getType() == CellType.INTERACTION) {
-                if (this.getTileName().equals("player")) { // override in player
-                    Player player = (Player) this;
-                    Backpack backpack = player.getBackpack();
-                    for (BackpackCell backpackCell : backpack.getBackpackItems().keySet()) {
-                        Item item = backpack.getBackpackItems().get(backpackCell);
-                        if (Objects.equals(item.getCellImageName(), "key")) {
-                            nextCell.setType(CellType.OPENED_DOOR);
-                            backpack.getBackpackItems().put(backpackCell, new EmptySpace());
-                            return;
-                        }
-                    }
-                }
-                return;
-            }
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        }
+    public MovementDir moveInRandomDirection(List<MovementDir> moves){
+            return moves.get((int) (Math.random() * 4));
     }
 
-    public boolean isActorOutOfMap(int dx, int dy){
-        int mapWidth = cell.getGameMap().getWidth();
-        int mapHeight = cell.getGameMap().getHeight();
-        if ((dx == 1) && (this.getX() + dx == mapWidth))
-            return true;
-        else if ((dx == -1) && (this.getX() + dx == -1))
-            return true;
-        else if ((dy == 1) && (this.getY() + dy == mapHeight))
-            return true;
-        else return (dx == -1) && (this.getY() + dy == -1);
+    public MovementDir moveInCircles(List<MovementDir> moves, MovementDir lastMove){
+        int i = 0;
+        MovementDir newMove = lastMove;
+        for (MovementDir moveDir : moves) {
+            if (lastMove == moveDir) {
+                if (i + 1 == moves.size()) {
+                    newMove = moves.get(0);
+                } else {
+                    newMove = moves.get(i + 1);
+                }
+                break;
+            }
+            i++;
+        }
+        return newMove;
+    }
+
+    public boolean moveToWalkableCell(Cell targetCell){
+        return targetCell.getType() == CellType.WALKABLE;
+    }
+
+    public boolean moveToVacantCell(Cell targetCell){
+        Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
+        return actorMatrix[targetCell.getX()][targetCell.getY()] == null;
     }
 }

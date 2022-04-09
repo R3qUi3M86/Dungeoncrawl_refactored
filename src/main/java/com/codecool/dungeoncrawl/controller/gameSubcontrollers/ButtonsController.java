@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers;
 
 import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
 import com.codecool.dungeoncrawl.model.items.Item;
@@ -25,38 +24,42 @@ public class ButtonsController {
     }
 
     public void setPlayerGUIButtons(Player player){
-        setPickUpButton(player.getCell());
-        setUseItButton(player.getCell());
-        setEnterButton(player.getCell());
+        setPickUpButton(player);
+        setUseItButton(player);
+        setEnterButton(player);
     }
 
-    private void setPickUpButton(Cell playerCell) {
-        Item item = playerCell.getItem();
+    private void setPickUpButton(Player player) {
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Item item = itemMatrix[player.getX()][player.getY()];
         pickUpButton.setDisable(item == null || item.isConsumable());
     }
 
-    private void setUseItButton(Cell playerCell) {
-        Item item = playerCell.getItem();
+    private void setUseItButton(Player player) {
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Item item = itemMatrix[player.getX()][player.getY()];
         useItButton.setDisable(item == null || !item.isConsumable());
     }
 
-    private void setEnterButton(Cell playerCell) {
-        enterButton.setDisable(!playerCell.isExit());
+    private void setEnterButton(Player player) {
+        enterButton.setDisable(!player.getCell().isExit());
     }
 
     void pickUpEventHandler() {
         Player player = GameController.getInstance().getPlayer();
-        Item item = player.getCell().getItem();
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Item item = itemMatrix[player.getX()][player.getY()];
         player.getBackpack().addItem(item);
-        player.getCell().removeItem();
+        itemMatrix[player.getX()][player.getY()] = null;
         GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 
     private void useItEventHandler() {
         Player player = GameController.getInstance().getPlayer();
-        Item item = player.getCell().getItem();
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Item item = itemMatrix[player.getX()][player.getY()];
         item.useItem(player);
-        player.getCell().removeItem();
+        itemMatrix[player.getX()][player.getY()] = null;
         GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 

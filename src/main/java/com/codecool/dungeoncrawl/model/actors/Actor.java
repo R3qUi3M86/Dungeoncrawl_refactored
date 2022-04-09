@@ -1,28 +1,18 @@
 package com.codecool.dungeoncrawl.model.actors;
 
 import com.codecool.dungeoncrawl.display.cells.Cell;
-import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.display.Drawable;
-import com.codecool.dungeoncrawl.model.items.Item;
-import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
-import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
-import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
-
-import java.util.Objects;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     int health;
     int attack;
+    boolean minion = false;
     private boolean alive = true;
-
-    public Actor(){}
 
     public Actor(Cell cell) {
         this.cell = cell;
     }
-
-    abstract public void moveActor(); // update turn
 
     public int getHealth() {
         return health;
@@ -63,10 +53,19 @@ public abstract class Actor implements Drawable {
 
     public void setCell(Cell cell){
         this.cell = cell;
-        this.cell.setActor(this);
     }
+
+    public void resolveEffects(){}
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public boolean isMinion() {
+        return minion;
+    }
+
+    public void setMinion(boolean minion) {
+        this.minion = minion;
     }
 }

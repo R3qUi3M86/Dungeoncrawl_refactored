@@ -47,7 +47,6 @@ public class GameController {
     public void initGame(){
         map = MapLoader.loadMap(currentMapNumber);
         player = new Player(map.getPlayerStartingCell());
-        actorController.initNPCsMatrix(map.getWidth(), map.getHeight());
         actorController.setPlayer(player);
     }
 
@@ -66,12 +65,13 @@ public class GameController {
         actorController.takeAllNPCTurn();
         actorController.clearCorpses();
         resolveTimedEffects();
+        actorController.clearCorpses();
         buttonsController.setPlayerGUIButtons(player);
         viewController.refresh(map, player);
     }
 
     private void resolveTimedEffects(){
-        //TODO
+        actorController.resolveActorTimedEffects();
     }
 
     private void setNextMap(){
@@ -83,9 +83,6 @@ public class GameController {
         setNextMap();
         player.setCell(map.getPlayerStartingCell());
         buttonsController.setPlayerGUIButtons(player);
-        actorController.initNPCsMatrix(map.getWidth(), map.getHeight());
-        decorController.initDecorMatrix(map.getWidth(), map.getHeight());
-        itemController.initItemMatrix(map.getWidth(), map.getHeight());
         viewController.refresh(map, player);
     }
 

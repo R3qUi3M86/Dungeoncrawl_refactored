@@ -39,6 +39,10 @@ public class MapLoader {
         DecorController decorController = GameController.getInstance().getDecorController();
         ItemController itemController = GameController.getInstance().getItemController();
 
+        actorController.initNPCsMatrix(width, height);
+        itemController.initItemMatrix(width, height);
+        decorController.initDecorMatrix(width, height);
+
         GameMap map = new GameMap(width, height, CellType.ILLEGAL, cellRenderType);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
@@ -70,7 +74,7 @@ public class MapLoader {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.STAIRS_DOWN);
                             break;
-                        case '.';
+                        case '.':
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             break;

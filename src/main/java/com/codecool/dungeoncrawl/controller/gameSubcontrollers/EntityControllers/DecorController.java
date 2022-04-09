@@ -8,7 +8,7 @@ public class DecorController {
     private Player player;
 
     public void initDecorMatrix(int x, int y){
-        decorMatrix = new Decor[y][x];
+        decorMatrix = new Decor[x][y];
     }
 
     public void setPlayer(Player player){
@@ -16,7 +16,7 @@ public class DecorController {
     }
 
     public void addDecorToController(int x, int y, Decor decor){
-        decorMatrix[y][x] = decor;
+        decorMatrix[x][y] = decor;
     }
 
     public Decor[][] getDecorMatrix() {

@@ -1,11 +1,12 @@
 package com.codecool.dungeoncrawl.model.actors;
 
+import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Rat extends Actor {
+public class Rat extends Actor implements Mob {
     private int moveTimer = 0;
     private final int moveTimerLimit = 2;
     private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
@@ -18,26 +19,15 @@ public class Rat extends Actor {
     }
 
     @Override
-    public void moveActor() {
+    public MovementDir getPotentialMoveDirection(){
         if (moveTimer < moveTimerLimit) {
             moveTimer++;
         } else {
-            int i = 0;
-            for (MovementDir moveDir : moves) {
-                if (lastMove == moveDir) {
-                    if (i + 1 == moves.size()) {
-                        move(moves.get(0).getDx(), moves.get(0).getDy());
-                        lastMove = moves.get(0);
-                    } else {
-                        move(moves.get(i + 1).getDx(), moves.get(i + 1).getDy());
-                        lastMove = moves.get(i + 1);
-                    }
-                    break;
-                }
-                i++;
-            }
             moveTimer = 0;
+            lastMove = GameController.getInstance().getActorController().getMoveSubcontroller().moveInCircles(moves, lastMove);
+            return lastMove;
         }
+        return MovementDir.M_NONE;
     }
 
     @Override

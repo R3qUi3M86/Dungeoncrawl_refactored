@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.model.map.GameMap;
 
 public class Cell implements Drawable {
     private CellType type;
-    private CellImage imageType;
+    private CellImage imageType = CellImage.EMPTY;
     private final int x;
     private final int y;
     private boolean exit = false;

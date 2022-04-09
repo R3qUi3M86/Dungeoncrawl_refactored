@@ -8,7 +8,7 @@ public class ItemController {
     private Player player;
 
     public void initItemMatrix(int x, int y){
-        itemMatrix = new Item[y][x];
+        itemMatrix = new Item[x][y];
     }
 
     public void setPlayer(Player player){
@@ -16,7 +16,7 @@ public class ItemController {
     }
 
     public void addItemToController(int x, int y, Item item){
-        itemMatrix[y][x] = item;
+        itemMatrix[x][y] = item;
     }
 
     public Item[][] getItemMatrix() {
