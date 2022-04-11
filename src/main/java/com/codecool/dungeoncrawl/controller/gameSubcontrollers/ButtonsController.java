@@ -24,20 +24,18 @@ public class ButtonsController {
     }
 
     public void setPlayerGUIButtons(Player player){
-        setPickUpButton(player);
-        setUseItButton(player);
+        setPickUpButton();
+        setUseItButton();
         setEnterButton(player);
     }
 
-    private void setPickUpButton(Player player) {
-        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
-        Item item = itemMatrix[player.getX()][player.getY()];
+    private void setPickUpButton() {
+        Item item = GameController.getInstance().getItemController().getItemAtPlayerLocation();
         pickUpButton.setDisable(item == null || item.isConsumable());
     }
 
-    private void setUseItButton(Player player) {
-        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
-        Item item = itemMatrix[player.getX()][player.getY()];
+    private void setUseItButton() {
+        Item item = GameController.getInstance().getItemController().getItemAtPlayerLocation();
         useItButton.setDisable(item == null || !item.isConsumable());
     }
 
@@ -46,20 +44,12 @@ public class ButtonsController {
     }
 
     void pickUpEventHandler() {
-        Player player = GameController.getInstance().getPlayer();
-        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
-        Item item = itemMatrix[player.getX()][player.getY()];
-        player.getBackpack().addItem(item);
-        itemMatrix[player.getX()][player.getY()] = null;
+        GameController.getInstance().getItemController().pickUpItem();
         GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 
     private void useItEventHandler() {
-        Player player = GameController.getInstance().getPlayer();
-        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
-        Item item = itemMatrix[player.getX()][player.getY()];
-        item.useItem(player);
-        itemMatrix[player.getX()][player.getY()] = null;
+        GameController.getInstance().getItemController().useItem();
         GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 

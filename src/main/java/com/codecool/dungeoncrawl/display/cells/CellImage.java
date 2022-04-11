@@ -7,8 +7,8 @@ public enum CellImage {
     CLOSED_DOOR("closed door"),
     OPENED_DOOR("opened door"),
     STAIRS_UP("stairs up"),
-    STAIRS_DOWN("stairs down");
-
+    STAIRS_DOWN("stairs down"),
+    DECORATION("decoration");
 
     private final String tileName;
 

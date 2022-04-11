@@ -6,14 +6,8 @@ import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
-import com.codecool.dungeoncrawl.model.items.Item;
-import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
-import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
-import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MoveSubcontroller {
 
@@ -25,10 +19,10 @@ public class MoveSubcontroller {
     }
 
     public MovementDir moveInRandomDirection(List<MovementDir> moves){
-            return moves.get((int) (Math.random() * 4));
+        return moves.get((int) (Math.random() * 4));
     }
 
-    public MovementDir moveInCircles(List<MovementDir> moves, MovementDir lastMove){
+    public MovementDir moveInSequence(List<MovementDir> moves, MovementDir lastMove){
         int i = 0;
         MovementDir newMove = lastMove;
         for (MovementDir moveDir : moves) {
@@ -52,5 +46,14 @@ public class MoveSubcontroller {
     public boolean moveToVacantCell(Cell targetCell){
         Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
         return actorMatrix[targetCell.getX()][targetCell.getY()] == null;
+    }
+
+    public MovementDir applyMovementModifiers(Player player, MovementDir movementDir){
+        if(player.isSlowed()){
+            player.setSlowed(false);
+            return MovementDir.M_NONE;
+        } else {
+            return movementDir;
+        }
     }
 }

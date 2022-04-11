@@ -26,27 +26,6 @@ public class Warlock extends Actor implements Mob, Summoner{
     }
 
     @Override
-    public MovementDir getPotentialMoveDirection() {
-        if (moveTimer < moveTimerLimit) {
-            moveTimer++;
-        } else {
-            moveTimer = 0;
-            return GameController.getInstance().getActorController().getMoveSubcontroller().moveInRandomDirection(moves);
-        }
-        return MovementDir.M_NONE;
-    }
-
-    @Override
-    public String getCellImageName() {
-        return "warlock";
-    }
-
-    @Override
-    public int getAttack() {
-        return attack;
-    }
-
-    @Override
     public void resolveEffects() {
         spawnMinion();
     }
@@ -72,5 +51,26 @@ public class Warlock extends Actor implements Mob, Summoner{
     @Override
     public ArrayList<Minion> getMinions() {
         return minions;
+    }
+
+    @Override
+    public MovementDir getPotentialMoveDirection() {
+        if (moveTimer < moveTimerLimit) {
+            moveTimer++;
+        } else {
+            moveTimer = 0;
+            return GameController.getInstance().getActorController().getMoveSubcontroller().moveInRandomDirection(moves);
+        }
+        return MovementDir.M_NONE;
+    }
+
+    @Override
+    public String getCellImageName() {
+        return "warlock";
+    }
+
+    @Override
+    public int getAttack() {
+        return attack;
     }
 }

@@ -17,12 +17,6 @@ public abstract class Backpack extends Item {
 
     public Backpack() {}
 
-    abstract void setCapacity();
-
-    public int[] getCapacity() {
-        return capacity;
-    }
-
     public OperationResult addItem(Item item){
         for (int i = 0; i < capacity[0]; i++){
             for (int j = 0; j < capacity[1]; j++){
@@ -36,7 +30,13 @@ public abstract class Backpack extends Item {
         return OperationResult.FAILED;
     }
 
+    public int[] getCapacity() {
+        return capacity;
+    }
+
     public Map<BackpackCell, Item> getBackpackItems() {
         return backpackItems;
     }
+
+    abstract void setCapacity();
 }

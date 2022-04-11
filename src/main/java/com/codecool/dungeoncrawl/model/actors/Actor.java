@@ -14,6 +14,19 @@ public abstract class Actor implements Drawable {
         this.cell = cell;
     }
 
+    public void resolveEffects(){}
+
+    public void takeDamage(int damage){
+        if (health <= damage) {
+            killActor();
+        }
+        health -= damage;
+    }
+
+    void killActor() {
+        alive = false;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -30,15 +43,12 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-    public void takeDamage(int damage){
-        if (health <= damage) {
-            killActor();
-        }
-        health -= damage;
+    public boolean isAlive() {
+        return alive;
     }
 
-    void killActor() {
-        alive = false;
+    public boolean isMinion() {
+        return minion;
     }
 
     abstract public int getAttack();
@@ -47,25 +57,11 @@ public abstract class Actor implements Drawable {
         this.attack = attack;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
     public void setCell(Cell cell){
         this.cell = cell;
     }
 
-    public void resolveEffects(){}
-
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public boolean isMinion() {
-        return minion;
-    }
-
-    public void setMinion(boolean minion) {
-        this.minion = minion;
     }
 }

@@ -24,7 +24,7 @@ public class Rat extends Actor implements Mob {
             moveTimer++;
         } else {
             moveTimer = 0;
-            lastMove = GameController.getInstance().getActorController().getMoveSubcontroller().moveInCircles(moves, lastMove);
+            lastMove = GameController.getInstance().getActorController().getMoveSubcontroller().moveInSequence(moves, lastMove);
             return lastMove;
         }
         return MovementDir.M_NONE;

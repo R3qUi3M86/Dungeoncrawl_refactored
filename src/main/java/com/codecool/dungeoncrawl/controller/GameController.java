@@ -17,7 +17,7 @@ public class GameController {
     private final ActorController actorController;
     private final DecorController decorController;
     private final ItemController itemController;
-    private final UserKeyboardInputController userInputController;
+    private UserKeyboardInputController userInputController;
     private ButtonsController buttonsController;
     public static int currentMapNumber = 0;
     private GameMap map;
@@ -25,7 +25,6 @@ public class GameController {
 
     private GameController(){
         viewController = ViewController.getInstance();
-        userInputController = new UserKeyboardInputController();
         this.buttonsController = new ButtonsController(
                 viewController.getPlayerGUI().getPickUpButton(),
                 viewController.getPlayerGUI().getUseItButton(),
@@ -48,26 +47,31 @@ public class GameController {
         map = MapLoader.loadMap(currentMapNumber);
         player = new Player(map.getPlayerStartingCell());
         actorController.setPlayer(player);
+        itemController.setPlayer(player);
+        decorController.setPlayer(player);
     }
 
     public void addPlayerInputListeners(Scene scene) {
-        scene.setOnKeyPressed(userInputController::onKeyPressed); //find way to remove key pressed listeners after player dead
+        scene.setOnKeyPressed(userInputController::onSoberKeyPressed); //find way to remove key pressed listeners after player dead
         buttonsController.setGUIButtonsEventHandlers();
     }
 
     public void startGame(){
+        this.userInputController = new UserKeyboardInputController(viewController.getCurrentScene());
         addPlayerInputListeners(viewController.getCurrentScene());
         viewController.refresh(map, player);
     }
 
-    public void playTurn(MovementDir movementDir){
-        actorController.takePlayerTurn(movementDir);
-        actorController.takeAllNPCTurn();
-        actorController.clearCorpses();
-        resolveTimedEffects();
-        actorController.clearCorpses();
-        buttonsController.setPlayerGUIButtons(player);
-        viewController.refresh(map, player);
+    public void playTurn(MovementDir movementDir) {
+        if (player.isAlive()) {
+            actorController.takePlayerTurn(movementDir);
+            actorController.takeAllNPCTurn();
+            actorController.clearCorpses();
+            resolveTimedEffects();
+            actorController.clearCorpses();
+            buttonsController.setPlayerGUIButtons(player);
+            viewController.refresh(map, player);
+        }
     }
 
     private void resolveTimedEffects(){
@@ -82,6 +86,7 @@ public class GameController {
     public void travelToNextLevel(){
         setNextMap();
         player.setCell(map.getPlayerStartingCell());
+        actorController.setPlayer(player);
         buttonsController.setPlayerGUIButtons(player);
         viewController.refresh(map, player);
     }
@@ -100,6 +105,10 @@ public class GameController {
 
     public ItemController getItemController() {
         return itemController;
+    }
+
+    public UserKeyboardInputController getUserInputController() {
+        return userInputController;
     }
 
     public GameMap getMap() {

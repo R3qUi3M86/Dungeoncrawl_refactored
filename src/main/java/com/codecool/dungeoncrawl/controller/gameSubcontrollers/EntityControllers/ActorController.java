@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers;
 
+import com.codecool.dungeoncrawl.Util;
 import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.CombatSubcontroller;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.InteractionSubcontroller;
@@ -15,7 +16,7 @@ public class ActorController {
     private final InteractionSubcontroller interactionSubcontroller;
 
     private Actor[][] actorMatrix;
-    private ArrayList<Actor> npcList = new ArrayList<>();
+    private ArrayList<Actor> npcList;
     private Player player;
 
     public ActorController(){
@@ -25,6 +26,7 @@ public class ActorController {
     }
 
     public void initNPCsMatrix(int x, int y){
+        npcList = new ArrayList<>();
         actorMatrix = new Actor[x][y];
     }
 
@@ -35,12 +37,14 @@ public class ActorController {
 
     public void takePlayerTurn(MovementDir moveDir){
         Player player = GameController.getInstance().getPlayer();
-        Cell targetCell = player.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
+        moveDir = moveSubcontroller.applyMovementModifiers(player, moveDir);
+        if (!Util.cellIsOutOfMap(player.getX()+ moveDir.getDx(), player.getY()+moveDir.getDy())) {
+            Cell targetCell = player.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
 
-        switch (targetCell.getType()){
-            case INTERACTION -> interactionSubcontroller.playerInteract(targetCell, player);
-            case ILLEGAL -> GameController.getInstance().travelToNextLevel();
-            case WALKABLE -> playerFightOrMove(targetCell, moveDir);
+            switch (targetCell.getType()) {
+                case INTERACTION -> interactionSubcontroller.playerInteract(targetCell, player, moveDir);
+                case WALKABLE -> playerFightOrMove(targetCell, moveDir);
+            }
         }
     }
 
@@ -63,8 +67,10 @@ public class ActorController {
     private void takeNPCTurn(Actor npc){
         Mob mob = (Mob) npc;
         MovementDir moveDir = mob.getPotentialMoveDirection();
-        Cell targetCell = npc.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
-        npcFightOrMove(npc, targetCell, moveDir);
+        if (!Util.cellIsOutOfMap(npc.getX()+ moveDir.getDx(), npc.getY()+moveDir.getDy())){
+            Cell targetCell = npc.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
+            npcFightOrMove(npc, targetCell, moveDir);
+        }
     }
 
     private void npcFightOrMove(Actor npc, Cell targetCell, MovementDir moveDir){
@@ -125,5 +131,9 @@ public class ActorController {
 
     public MoveSubcontroller getMoveSubcontroller() {
         return moveSubcontroller;
+    }
+
+    public InteractionSubcontroller getInteractionSubcontroller() {
+        return interactionSubcontroller;
     }
 }

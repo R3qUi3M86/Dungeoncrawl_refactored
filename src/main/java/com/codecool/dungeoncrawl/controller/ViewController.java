@@ -68,7 +68,7 @@ public class ViewController {
     }
 
     public void drawTile(GraphicsContext context, Drawable d, int x, int y) {
-        Tile tile = Tiles.getTileMap().get(d.getCellImageName());
+        Tile tile = Tiles.getTileMap().get(d.getCellImageName()); // get dunegon/forest tile map (based on map CEll render type)
         context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
                 x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
     }

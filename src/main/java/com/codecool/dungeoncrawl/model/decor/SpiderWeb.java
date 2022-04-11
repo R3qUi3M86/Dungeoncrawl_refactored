@@ -10,7 +10,11 @@ public class SpiderWeb extends Decor {
 
     @Override
     public String getCellImageName() {
-        return "spiderweb";
+        return DecorType.SPIDER_WEB.toString();
+    }
+
+    public DecorType getDecorType(){
+        return DecorType.SPIDER_WEB;
     }
 
 }

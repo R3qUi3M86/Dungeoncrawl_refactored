@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.model.actors;
 
+import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Sword;
@@ -15,6 +16,7 @@ public class Player extends Actor {
     private int drunkCounter = 0;
     private int drunkLimit = 20;
     private boolean wasted = false;
+    private boolean slowed = false;
 
     public Player(Cell cell) {
         super(cell);
@@ -22,34 +24,10 @@ public class Player extends Actor {
         this.health = 15;
     }
 
-    public String getCellImageName() {
-        return "player";
-    }
-
-    public Backpack getBackpack() {
-        return backpack;
-    }
-
-    @Override
-    public int getAttack(){
-        for ( BackpackCell backpackCell : backpack.getBackpackItems().keySet() ) {
-            Item item = backpack.getBackpackItems().get(backpackCell);
-            if (Objects.equals(item.getCellImageName(), "sword")) { // instanceof interface weapon
-                Sword sword = (Sword) item;
-                return attack + sword.getDamageModifier();
-            }
-        }
-        return attack;
-    }
-
     public void eatFood(int heal) {
         if (health + heal <= maxHealth)
             health += heal;
         else health = maxHealth;
-    }
-
-    public void getWasted() {
-        wasted = true;
     }
 
     @Override
@@ -66,9 +44,43 @@ public class Player extends Actor {
     public void resolveEffects(){
         if (wasted){
             drunkCounter++;
-            if (drunkCounter == drunkLimit)
+            if (drunkCounter == drunkLimit) {
                 wasted = false;
+                GameController.getInstance().getUserInputController().setSoberKeyMapping();
+            }
         }
+    }
+
+    @Override
+    public int getAttack(){
+        for ( BackpackCell backpackCell : backpack.getBackpackItems().keySet() ) {
+            Item item = backpack.getBackpackItems().get(backpackCell);
+            if (Objects.equals(item.getCellImageName(), "sword")) { // instanceof interface weapon
+                Sword sword = (Sword) item;
+                return attack + sword.getDamageModifier();
+            }
+        }
+        return attack;
+    }
+
+    public String getCellImageName() {
+        return "player";
+    }
+
+    public Backpack getBackpack() {
+        return backpack;
+    }
+
+    public void getWasted() {
+        wasted = true;
+    }
+
+    public boolean isSlowed() {
+        return slowed;
+    }
+
+    public void setSlowed(boolean slowed) {
+        this.slowed = slowed;
     }
 
     public boolean isWasted() {

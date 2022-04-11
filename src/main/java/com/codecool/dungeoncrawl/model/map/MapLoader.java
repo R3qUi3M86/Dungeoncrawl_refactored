@@ -80,7 +80,7 @@ public class MapLoader {
                             break;
                         case 'z':
                             cell.setType(CellType.INTERACTION);
-                            cell.setImageType(CellImage.FLOOR);
+                            cell.setImageType(CellImage.DECORATION);
                             decorController.addDecorToController(x, y, new SpiderWeb(cell));
                             break;
                         case 'E':
