@@ -30,13 +30,13 @@ public class MapGUI {
                 int mapY = cameraField.getY();
                 Cell cell = map.getCell(mapX, mapY);
                 if (actorMatrix[mapX][mapY] != null) {
-                    ViewController.getInstance().drawTile(context, actorMatrix[mapX][mapY], mapX, mapY);
+                    ViewController.getInstance().drawTile(context, actorMatrix[mapX][mapY], x, y);
                 } else if (itemMatrix[mapX][mapY] != null) {
-                    ViewController.getInstance().drawTile(context, itemMatrix[mapX][mapY], mapX, mapY);
+                    ViewController.getInstance().drawTile(context, itemMatrix[mapX][mapY], x, y);
                 } else if (decorMatrix[mapX][mapY] != null) {
-                    ViewController.getInstance().drawTile(context, decorMatrix[mapX][mapY], mapX, mapY);
+                    ViewController.getInstance().drawTile(context, decorMatrix[mapX][mapY], x, y);
                 } else {
-                    ViewController.getInstance().drawTile(context, cell, mapX, mapY);
+                    ViewController.getInstance().drawTile(context, cell, x, y);
                 }
             }
         }

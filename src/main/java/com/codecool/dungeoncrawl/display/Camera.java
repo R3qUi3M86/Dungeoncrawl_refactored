@@ -6,6 +6,8 @@ import com.codecool.dungeoncrawl.model.map.GameMap;
 import java.util.ArrayList;
 
 public class Camera {
+    private final int hRange;
+    private final int vRange;
     private final GameMap map;
     private int[] targetField;
     private final CameraField[][] matrixInView;
@@ -14,6 +16,8 @@ public class Camera {
 
 
     public Camera(GameMap map, int[] targetField, int hRange, int vRange) {
+        this.hRange = hRange;
+        this.vRange = vRange;
         this.map = map;
         this.targetField = targetField; // od 1
         matrixInView = new CameraField[hRange][vRange];
@@ -40,11 +44,12 @@ public class Camera {
     }
 
     private void setMatrixInView() {
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
+        for (int x = 0; x < hRange; x++) {
+            for (int y = 0; y < vRange; y++) {
                 int mapX = targetField[0] - hMinDistance + x;
                 int mapY = targetField[1] - vMinDistance + y;
-
+                System.out.println(matrixInView.length);
+                System.out.println(matrixInView[0].length);
                 matrixInView[x][y] = new CameraField(mapX, mapY);
             }
         }
