@@ -25,18 +25,18 @@ public class Camera {
     private void setValidTargetField(){
         int hMinDistance = (hRange - 1) / 2;
         int vMinDistance = (vRange - 1) / 2;
-        int hDistToMapBorder = map.getWidth() - targetField[0];
-        int vDistToMapBorder = map.getHeight() - targetField[1];
+        int hDistToMapBorder = map.getWidth() - 1 - targetField[0];
+        int vDistToMapBorder = map.getHeight() - 1 - targetField[1];
 
-        if (targetField[0] <= hMinDistance){
-            targetField[0] = hMinDistance + 1;
-        } else if (hDistToMapBorder <= hMinDistance){
-            targetField[0] = map.getWidth() - hMinDistance - 1;
+        if (targetField[0] < hMinDistance){
+            targetField[0] = hMinDistance;
+        } else if (hDistToMapBorder < hMinDistance){
+            targetField[0] = map.getWidth() - 1 - hMinDistance;
         }
-        if (targetField[1] <= vMinDistance){
-            targetField[1] = vMinDistance + 1;
-        } else if (vDistToMapBorder <= vMinDistance){
-            targetField[1] = map.getHeight() - vMinDistance - 1;
+        if (targetField[1] < vMinDistance){
+            targetField[1] = vMinDistance;
+        } else if (vDistToMapBorder < vMinDistance){
+            targetField[1] = map.getHeight() - 1 - vMinDistance;
         }
     }
 

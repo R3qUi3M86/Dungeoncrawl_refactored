@@ -49,6 +49,7 @@ public class GameController {
         actorController.setPlayer(player);
         itemController.setPlayer(player);
         decorController.setPlayer(player);
+        ViewController.getInstance().setCamera();
     }
 
     public void addPlayerInputListeners(Scene scene) {
@@ -81,6 +82,7 @@ public class GameController {
     private void setNextMap(){
         currentMapNumber++;
         map = MapLoader.loadMap(currentMapNumber);
+        ViewController.getInstance().setCamera();
     }
 
     public void travelToNextLevel(){

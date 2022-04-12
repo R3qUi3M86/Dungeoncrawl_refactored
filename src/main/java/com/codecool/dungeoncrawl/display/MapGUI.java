@@ -20,7 +20,6 @@ public class MapGUI {
 
 
     public void drawMap(GameMap map, Actor[][] actorMatrix, Item[][] itemMatrix, Decor[][] decorMatrix){
-        Camera camera = new Camera(map, new int[]{0,0}, horizontalViewRange, verticalViewRange);
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -41,5 +40,13 @@ public class MapGUI {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public int getHorizontalViewRange() {
+        return horizontalViewRange;
+    }
+
+    public int getVerticalViewRange() {
+        return verticalViewRange;
     }
 }

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.controller;
 
+import com.codecool.dungeoncrawl.display.Camera;
 import com.codecool.dungeoncrawl.display.MapGUI;
 import com.codecool.dungeoncrawl.display.PlayerGUI;
 import com.codecool.dungeoncrawl.display.tiles.Tile;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 public class ViewController {
     private static ViewController viewController;
     private static GameController gameController;
+    private Camera camera;
     private final MapGUI mapGUI;
     private final PlayerGUI playerGUI;
     private Scene currentScene;
@@ -71,6 +73,14 @@ public class ViewController {
         Tile tile = Tiles.getTileMap().get(d.getCellImageName()); // get dunegon/forest tile map (based on map CEll render type)
         context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
                 x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
+    }
+
+    public void setCamera() {
+        GameMap map = GameController.getInstance().getMap();
+        int[] targetField = new int[]{map.getPlayerStartingCell().getX(), map.getPlayerStartingCell().getY()};
+        int hRange = mapGUI.getHorizontalViewRange();
+        int vRange = mapGUI.getVerticalViewRange();
+        this.camera = new Camera(map, targetField, hRange, vRange);
     }
 
     public Scene getCurrentScene() {

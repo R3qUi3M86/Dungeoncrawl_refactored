@@ -40,6 +40,8 @@ public class GameMap {
     }
 
     public Cell getPlayerStartingCell(){
+        System.out.println(playerStartingPosition[0]);
+        System.out.println(playerStartingPosition[1]);
         return cells[playerStartingPosition[0]][playerStartingPosition[1]];
     }
 }
