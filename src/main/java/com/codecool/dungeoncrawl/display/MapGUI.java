@@ -12,10 +12,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class MapGUI {
-    private final Canvas canvas = new Canvas(25 * Tile.TILE_WIDTH, 20 * Tile.TILE_WIDTH);
+    private final int horizontalViewRange = 25;
+    private final int verticalViewRange = 21;
+    private final Canvas canvas = new Canvas(horizontalViewRange * Tile.TILE_WIDTH, verticalViewRange * Tile.TILE_WIDTH);
     private final GraphicsContext context = canvas.getGraphicsContext2D();
 
+
+
     public void drawMap(GameMap map, Actor[][] actorMatrix, Item[][] itemMatrix, Decor[][] decorMatrix){
+        Camera camera = new Camera(map, new int[]{0,0}, horizontalViewRange, verticalViewRange);
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
