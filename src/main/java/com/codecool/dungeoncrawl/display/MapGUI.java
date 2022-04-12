@@ -19,20 +19,24 @@ public class MapGUI {
 
 
 
-    public void drawMap(GameMap map, Actor[][] actorMatrix, Item[][] itemMatrix, Decor[][] decorMatrix){
+    public void drawMap(GameMap map, Actor[][] actorMatrix, Item[][] itemMatrix, Decor[][] decorMatrix, Camera camera){
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
-                if (actorMatrix[x][y] != null) {
-                    ViewController.getInstance().drawTile(context, actorMatrix[x][y], x, y);
-                } else if (itemMatrix[x][y] != null) {
-                    ViewController.getInstance().drawTile(context, itemMatrix[x][y], x, y);
-                } else if (decorMatrix[x][y] != null) {
-                    ViewController.getInstance().drawTile(context, decorMatrix[x][y], x, y);
+
+        for (int x = 0; x < horizontalViewRange; x++) {
+            for (int y = 0; y < verticalViewRange; y++) {
+                CameraField cameraField = camera.getMatrixInView()[x][y];
+                int mapX = cameraField.getX();
+                int mapY = cameraField.getY();
+                Cell cell = map.getCell(mapX, mapY);
+                if (actorMatrix[mapX][mapY] != null) {
+                    ViewController.getInstance().drawTile(context, actorMatrix[mapX][mapY], mapX, mapY);
+                } else if (itemMatrix[mapX][mapY] != null) {
+                    ViewController.getInstance().drawTile(context, itemMatrix[mapX][mapY], mapX, mapY);
+                } else if (decorMatrix[mapX][mapY] != null) {
+                    ViewController.getInstance().drawTile(context, decorMatrix[mapX][mapY], mapX, mapY);
                 } else {
-                    ViewController.getInstance().drawTile(context, cell, x, y);
+                    ViewController.getInstance().drawTile(context, cell, mapX, mapY);
                 }
             }
         }
