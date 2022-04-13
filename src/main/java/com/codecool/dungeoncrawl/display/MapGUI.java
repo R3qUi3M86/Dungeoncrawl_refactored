@@ -34,7 +34,11 @@ public class MapGUI {
                 } else if (decorMatrix[mapX][mapY] != null) {
                     ViewController.getInstance().drawTile(context, decorMatrix[mapX][mapY], x, y);
                 } else {
-                    ViewController.getInstance().drawTile(context, cell, x, y);
+                    if (cell.getDoor() != null){
+                        ViewController.getInstance().drawTile(context, cell.getDoor(), x, y);
+                    } else {
+                        ViewController.getInstance().drawTile(context, cell, x, y);
+                    }
                 }
             }
         }

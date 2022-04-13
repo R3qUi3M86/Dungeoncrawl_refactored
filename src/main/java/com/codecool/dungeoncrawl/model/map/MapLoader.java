@@ -4,18 +4,14 @@ import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ActorController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
-import com.codecool.dungeoncrawl.display.cells.Cell;
-import com.codecool.dungeoncrawl.display.cells.CellImage;
-import com.codecool.dungeoncrawl.display.cells.CellRenderType;
-import com.codecool.dungeoncrawl.display.cells.CellType;
+import com.codecool.dungeoncrawl.display.cells.*;
+import com.codecool.dungeoncrawl.model.actors.Demon;
 import com.codecool.dungeoncrawl.model.actors.Rat;
 import com.codecool.dungeoncrawl.model.actors.Skeleton;
 import com.codecool.dungeoncrawl.model.actors.Warlock;
+import com.codecool.dungeoncrawl.model.decor.Shrine;
 import com.codecool.dungeoncrawl.model.decor.SpiderWeb;
-import com.codecool.dungeoncrawl.model.items.Booze;
-import com.codecool.dungeoncrawl.model.items.GoldenKey;
-import com.codecool.dungeoncrawl.model.items.Meat;
-import com.codecool.dungeoncrawl.model.items.Sword;
+import com.codecool.dungeoncrawl.model.items.*;
 
 import java.io.InputStream;
 import java.util.Objects;
@@ -50,86 +46,122 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
-                        case ' ':
+                        case ' ' -> {
                             cell.setType(CellType.ILLEGAL);
                             cell.setImageType(CellImage.EMPTY);
-                            break;
-                        case '#':
+                        }
+                        case '#' -> {
                             cell.setType(CellType.COLLISION);
                             cell.setImageType(CellImage.WALL);
-                            break;
-                        case 'D':
+                        }
+                        case 'Z' -> {
                             cell.setType(CellType.INTERACTION);
                             cell.setImageType(CellImage.CLOSED_DOOR);
-                            break;
-                        case 'd':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.OPENED_DOOR);
-                            break;
-                        case '^':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.STAIRS_UP);
-                            break;
-                        case 'v':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.STAIRS_DOWN);
-                            break;
-                        case '.':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.FLOOR);
-                            break;
-                        case 'z':
+                            cell.setDoor(new Door(DoorType.GOLDEN_DOOR));
+                        }
+                        case 'N' -> {
                             cell.setType(CellType.INTERACTION);
-                            cell.setImageType(CellImage.DECORATION);
-                            decorController.addDecorToController(x, y, new SpiderWeb(cell));
-                            break;
-                        case 'E':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.FLOOR);
-                            cell.setExit(true);
-                            break;
-                        case 'r':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.FLOOR);
-                            actorController.addNpcToController(x, y, new Rat(cell));
-                            break;
-                        case 's':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.FLOOR);
-                            actorController.addNpcToController(x, y, new Skeleton(cell));
-                            break;
-                        case 'o':
-                            cell.setType(CellType.WALKABLE);
-                            cell.setImageType(CellImage.FLOOR);
-                            actorController.addNpcToController(x, y, new Warlock(cell));
-                            break;
-                        case 'k':
+                            cell.setImageType(CellImage.CLOSED_DOOR);
+                            cell.setDoor(new Door(DoorType.BLUE_DOOR));
+                        }
+                        case 'C' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.CLOSED_DOOR);
+                            cell.setDoor(new Door(DoorType.RED_DOOR));
+                        }
+                        case 'z' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             itemController.addItemToController(x, y, new GoldenKey(cell));
-                            break;
-                        case 'm':
+                        }
+                        case 'c' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            itemController.addItemToController(x, y, new RedKey(cell));
+                        }
+                        case 'n' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            itemController.addItemToController(x, y, new BlueKey(cell));
+                        }
+                        case '^' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.STAIRS_UP);
+                            cell.setExit(true);
+                        }
+                        case '>' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.STAIRS_UP);
+                        }
+                        case 'v' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.STAIRS_DOWN);
+                            cell.setExit(true);
+                        }
+                        case '<' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.STAIRS_DOWN);
+                        }
+                        case '.' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                        }
+                        case '*' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new SpiderWeb(cell));
+                        }
+                        case 'H' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new Shrine(cell));
+                        }
+                        case 'E' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            cell.setExit(true);
+                        }
+                        case 'r' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Rat(cell));
+                        }
+                        case 's' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Skeleton(cell));
+                        }
+                        case 'o' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Warlock(cell));
+                        }
+                        case 'd' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Demon(cell));
+                        }
+                        case 'm' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             itemController.addItemToController(x, y, new Meat(cell));
-                            break;
-                        case 'b':
+                        }
+                        case '%' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             itemController.addItemToController(x, y, new Booze(cell));
-                            break;
-                        case 'w':
+                        }
+                        case 'w' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             itemController.addItemToController(x, y, new Sword(cell));
-                            break;
-                        case '@':
+                        }
+                        case '@' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             map.setPlayerStartingPosition(new int[]{x, y});
-                            break;
-                        default:
-                            throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
+                        }
+                        default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }

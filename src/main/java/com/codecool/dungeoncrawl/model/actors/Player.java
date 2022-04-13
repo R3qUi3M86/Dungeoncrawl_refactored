@@ -33,10 +33,7 @@ public class Player extends Actor {
     @Override
     public void takeDamage(int damage){
         if (!wasted) {
-            health -= damage;
-            if (health <= 0) {
-                killActor();
-            }
+            super.takeDamage(damage);
         }
     }
 
@@ -77,6 +74,10 @@ public class Player extends Actor {
 
     public boolean isSlowed() {
         return slowed;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public void setSlowed(boolean slowed) {

@@ -10,6 +10,7 @@ public class Cell implements Drawable {
     private final int x;
     private final int y;
     private boolean exit = false;
+    private Door door;
 
     public Cell(int x, int y, CellType type) {
         this.x = x;
@@ -51,11 +52,19 @@ public class Cell implements Drawable {
         return y;
     }
 
+    public Door getDoor() {
+        return door;
+    }
+
     public boolean isExit() {
         return exit;
     }
 
     public void setExit(boolean exit) {
         this.exit = exit;
+    }
+
+    public void setDoor(Door door) {
+        this.door = door;
     }
 }

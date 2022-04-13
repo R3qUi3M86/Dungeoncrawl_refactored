@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.model.actors.Player;
 
 public abstract class Decor implements Drawable {
     private Cell cell;
+    private boolean used = false;
 
     public Decor(Cell cell) {
         this.cell = cell;
@@ -23,7 +24,13 @@ public abstract class Decor implements Drawable {
         return cell.getY();
     }
 
-    public void useDecor(Player player) {}
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
 
     public abstract DecorType getDecorType();
 }

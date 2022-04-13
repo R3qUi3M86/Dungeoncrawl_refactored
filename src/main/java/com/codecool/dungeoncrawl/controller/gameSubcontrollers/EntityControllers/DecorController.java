@@ -26,6 +26,7 @@ public class DecorController {
         InteractionSubcontroller interactionSubcontroller = GameController.getInstance().getActorController().getInteractionSubcontroller();
         switch (decorType){
             case SPIDER_WEB -> interactionSubcontroller.interactWithSpiderWeb(movementDir, player);
+            case SHRINE -> interactionSubcontroller.interactWithShrine(decor, player);
         }
     }
 

@@ -1,7 +1,8 @@
 package com.codecool.dungeoncrawl.model.decor;
 
 public enum DecorType {
-    SPIDER_WEB("spiderweb");
+    SPIDER_WEB("spiderweb"),
+    SHRINE("shrine");;
 
     private final String tileName;
 

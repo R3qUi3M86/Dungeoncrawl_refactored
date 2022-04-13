@@ -12,14 +12,14 @@ public class Warlock extends Actor implements Mob, Summoner{
     private final int moveTimerLimit = 0;
     private final List<MovementDir> moves = Arrays.asList(MovementDir.M_UP, MovementDir.M_RIGHT, MovementDir.M_DOWN, MovementDir.M_LEFT);
 
-    private final int minionLimit = 2;
+    int minionLimit = 2;
     private int spawnMinionTimer = 0;
-    private final int spawnMinionTimerLimit = 6;
+    int spawnMinionTimerLimit = 6;
     private final ArrayList<Minion> minions = new ArrayList<>();
 
     public Warlock(Cell cell) {
         super(cell);
-        this.attack = 3;
+        attack = 3;
         health = 15;
     }
 
