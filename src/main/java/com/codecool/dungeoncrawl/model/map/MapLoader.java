@@ -13,7 +13,7 @@ import com.codecool.dungeoncrawl.model.actors.Skeleton;
 import com.codecool.dungeoncrawl.model.actors.Warlock;
 import com.codecool.dungeoncrawl.model.decor.SpiderWeb;
 import com.codecool.dungeoncrawl.model.items.Booze;
-import com.codecool.dungeoncrawl.model.items.Key;
+import com.codecool.dungeoncrawl.model.items.GoldenKey;
 import com.codecool.dungeoncrawl.model.items.Meat;
 import com.codecool.dungeoncrawl.model.items.Sword;
 
@@ -106,7 +106,7 @@ public class MapLoader {
                         case 'k':
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
-                            itemController.addItemToController(x, y, new Key(cell));
+                            itemController.addItemToController(x, y, new GoldenKey(cell));
                             break;
                         case 'm':
                             cell.setType(CellType.WALKABLE);

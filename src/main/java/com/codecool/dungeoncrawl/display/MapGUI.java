@@ -17,8 +17,6 @@ public class MapGUI {
     private final Canvas canvas = new Canvas(horizontalViewRange * Tile.TILE_WIDTH, verticalViewRange * Tile.TILE_WIDTH);
     private final GraphicsContext context = canvas.getGraphicsContext2D();
 
-
-
     public void drawMap(GameMap map, Actor[][] actorMatrix, Item[][] itemMatrix, Decor[][] decorMatrix, Camera camera){
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());

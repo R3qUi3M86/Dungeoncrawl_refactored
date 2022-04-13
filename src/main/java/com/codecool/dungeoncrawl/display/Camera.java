@@ -3,8 +3,6 @@ package com.codecool.dungeoncrawl.display;
 import com.codecool.dungeoncrawl.model.actors.Player;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 
-import java.util.ArrayList;
-
 public class Camera {
     private final int hRange;
     private final int vRange;
@@ -48,8 +46,6 @@ public class Camera {
             for (int y = 0; y < vRange; y++) {
                 int mapX = targetField[0] - hMinDistance + x;
                 int mapY = targetField[1] - vMinDistance + y;
-                System.out.println(matrixInView.length);
-                System.out.println(matrixInView[0].length);
                 matrixInView[x][y] = new CameraField(mapX, mapY);
             }
         }
@@ -57,6 +53,26 @@ public class Camera {
 
     public void followPlayer(Player player){
         targetField = new int[]{player.getX(), player.getY()};
+        setValidTargetField();
+        setMatrixInView();
+    }
+
+    public void moveAsRequired(Player player){
+        int playerInCameraX = targetField[0] - player.getX() + hMinDistance;
+        int playerInCameraY = targetField[1] - player.getY() + vMinDistance;
+        int cameraFollowDistanceX = hMinDistance / 2;
+        int cameraFollowDistanceY = vMinDistance / 2;
+
+        if (playerInCameraX < cameraFollowDistanceX) {
+            targetField[0] = targetField[0] + 1;
+        } else if (hRange - playerInCameraX < cameraFollowDistanceX) {
+            targetField[0] = targetField[0] - 1;
+        }
+        if (playerInCameraY < cameraFollowDistanceY) {
+            targetField[1] = targetField[1] + 1;
+        } else if (vRange - playerInCameraY < cameraFollowDistanceY) {
+            targetField[1] = targetField[1] - 1;
+        }
         setValidTargetField();
         setMatrixInView();
     }

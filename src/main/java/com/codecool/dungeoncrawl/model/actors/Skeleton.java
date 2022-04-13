@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.model.actors;
 
 import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.MoveSubcontroller;
 import com.codecool.dungeoncrawl.display.cells.Cell;
-import com.codecool.dungeoncrawl.display.cells.CellType;
-
 import java.util.Arrays;
 import java.util.List;
 

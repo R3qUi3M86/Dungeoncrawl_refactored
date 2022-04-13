@@ -61,7 +61,7 @@ public class ViewController {
         Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
         Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
         Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
-        camera.followPlayer(GameController.getInstance().getPlayer());
+        camera.moveAsRequired(GameController.getInstance().getPlayer());
         mapGUI.drawMap(gameMap, actorMatrix, itemMatrix, decorMatrix, camera);
     }
 
@@ -81,6 +81,7 @@ public class ViewController {
         int hRange = mapGUI.getHorizontalViewRange();
         int vRange = mapGUI.getVerticalViewRange();
         this.camera = new Camera(map, targetField, hRange, vRange);
+        camera.followPlayer(GameController.getInstance().getPlayer());
     }
 
     public Scene getCurrentScene() {

@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
-import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 import javafx.scene.Node;
 import javafx.scene.Parent;

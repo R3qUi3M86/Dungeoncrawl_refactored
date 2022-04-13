@@ -2,9 +2,9 @@ package com.codecool.dungeoncrawl.model.items;
 
 import com.codecool.dungeoncrawl.display.cells.Cell;
 
-public class Key extends Item{
+public class GoldenKey extends Item{
 
-    public Key(Cell cell) {
+    public GoldenKey(Cell cell) {
         super(cell);
     }
 
