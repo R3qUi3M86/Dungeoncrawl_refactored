@@ -71,13 +71,7 @@ public class ViewController {
     }
 
     public void drawTile(GraphicsContext context, Drawable d, int x, int y) {
-        CellRenderType cellRenderType = GameController.getInstance().getMap().getRenderType();
-        Tile tile;
-        switch (cellRenderType) {
-            case FOREST -> tile = Tiles.getForestTileMap().get(d.getCellImageName());
-            case HOUSE -> tile = Tiles.getHouseTileMap().get(d.getCellImageName());
-            default -> tile = Tiles.getDungeonTileMap().get(d.getCellImageName());
-        }
+        Tile tile = Tiles.getTileMap().get(d.getCellImageName());
         context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
                 x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
     }

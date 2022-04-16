@@ -52,7 +52,10 @@ public class MapLoader {
                         }
                         case '#' -> {
                             cell.setType(CellType.COLLISION);
-                            cell.setImageType(CellImage.WALL);
+                            switch (cellRenderType){
+                                case FOREST -> {cell.setForestImageType(CellImage.WALL);}
+                                default -> {cell.setImageType(CellImage.WALL);}
+                            }
                         }
                         case 'Z' -> {
                             cell.setType(CellType.INTERACTION);

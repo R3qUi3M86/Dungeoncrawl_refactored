@@ -40,6 +40,23 @@ public class Cell implements Drawable {
         this.imageType = imageType;
     }
 
+    public void setForestImageType(CellImage imageType){
+        if (imageType == CellImage.WALL){
+            switch (rndImgID){
+                case 0 -> this.imageType = CellImage.TREE1;
+                case 1 -> this.imageType = CellImage.TREE2;
+                case 2 -> this.imageType = CellImage.TREE3;
+                case 3 -> this.imageType = CellImage.TREE4;
+                case 4 -> this.imageType = CellImage.TREE5;
+                case 5 -> this.imageType = CellImage.TREE6;
+                case 6 -> this.imageType = CellImage.TREE7;
+                case 7 -> this.imageType = CellImage.TREE8;
+            }
+        } else {
+            this.imageType = imageType;
+        }
+    }
+
     public int getX() {
         return x;
     }
