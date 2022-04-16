@@ -90,6 +90,7 @@ public class GameController {
         player.setCell(map.getPlayerStartingCell());
         actorController.setPlayer(player);
         buttonsController.setPlayerGUIButtons(player);
+        ViewController.getInstance().getCamera().followPlayer(player);
         viewController.refresh(map, player);
     }
 

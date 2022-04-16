@@ -1,5 +1,5 @@
 package com.codecool.dungeoncrawl.display.cells;
 
 public enum CellRenderType {
-    DUNGEON, FOREST
+    DUNGEON, FOREST, HOUSE
 }

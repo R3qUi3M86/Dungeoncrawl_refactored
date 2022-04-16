@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.display.cells;
 
 import com.codecool.dungeoncrawl.display.Drawable;
-import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Key;
 
 public class Door implements Drawable {
@@ -32,4 +31,6 @@ public class Door implements Drawable {
     public void setOpen(boolean open) {
         this.open = open;
     }
+
+
 }

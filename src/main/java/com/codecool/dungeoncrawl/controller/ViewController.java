@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.controller;
 import com.codecool.dungeoncrawl.display.Camera;
 import com.codecool.dungeoncrawl.display.MapGUI;
 import com.codecool.dungeoncrawl.display.PlayerGUI;
+import com.codecool.dungeoncrawl.display.cells.CellRenderType;
 import com.codecool.dungeoncrawl.display.tiles.Tile;
 import com.codecool.dungeoncrawl.display.tiles.Tiles;
 import com.codecool.dungeoncrawl.display.Drawable;
@@ -57,7 +58,7 @@ public class ViewController {
         borderPane.requestFocus();
     }
 
-    private void refreshMapGUI(GameMap gameMap){
+    private void refreshMapGUI(GameMap gameMap) {
         Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
         Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
         Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
@@ -65,12 +66,18 @@ public class ViewController {
         mapGUI.drawMap(gameMap, actorMatrix, itemMatrix, decorMatrix, camera);
     }
 
-    private void refreshPlayerGUI(Player player){
+    private void refreshPlayerGUI(Player player) {
         playerGUI.drawPlayerGui(player);
     }
 
     public void drawTile(GraphicsContext context, Drawable d, int x, int y) {
-        Tile tile = Tiles.getTileMap().get(d.getCellImageName()); // get dungeon/forest tile map (based on map CEll render type)
+        CellRenderType cellRenderType = GameController.getInstance().getMap().getRenderType();
+        Tile tile;
+        switch (cellRenderType) {
+            case FOREST -> tile = Tiles.getForestTileMap().get(d.getCellImageName());
+            case HOUSE -> tile = Tiles.getHouseTileMap().get(d.getCellImageName());
+            default -> tile = Tiles.getDungeonTileMap().get(d.getCellImageName());
+        }
         context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
                 x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
     }
@@ -82,6 +89,10 @@ public class ViewController {
         int vRange = mapGUI.getVerticalViewRange();
         this.camera = new Camera(map, targetField, hRange, vRange);
         camera.followPlayer(GameController.getInstance().getPlayer());
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 
     public Scene getCurrentScene() {

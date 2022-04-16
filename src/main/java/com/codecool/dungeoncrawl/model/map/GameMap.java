@@ -35,11 +35,16 @@ public class GameMap {
         return height;
     }
 
-    public void setPlayerStartingPosition(int[] playerStartingPosition) {
-        this.playerStartingPosition = playerStartingPosition;
-    }
 
     public Cell getPlayerStartingCell(){
         return cells[playerStartingPosition[0]][playerStartingPosition[1]];
+    }
+
+    public CellRenderType getRenderType() {
+        return renderType;
+    }
+
+    public void setPlayerStartingPosition(int[] playerStartingPosition) {
+        this.playerStartingPosition = playerStartingPosition;
     }
 }

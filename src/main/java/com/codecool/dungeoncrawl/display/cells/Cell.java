@@ -11,6 +11,7 @@ public class Cell implements Drawable {
     private final int y;
     private boolean exit = false;
     private Door door;
+    private final int rndImgID = (int) (Math.random() * 8);
 
     public Cell(int x, int y, CellType type) {
         this.x = x;
@@ -54,6 +55,10 @@ public class Cell implements Drawable {
 
     public Door getDoor() {
         return door;
+    }
+
+    public int getRndImgID() {
+        return rndImgID;
     }
 
     public boolean isExit() {

@@ -1,9 +1,41 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.display.cells.CellType;
-import com.codecool.dungeoncrawl.model.map.GameMap;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+
+@ExtendWith(MockitoExtension.class)
 class ActorTest {
+    @Test
+    void playerTurnTest(){
+        //given
+
+        //when
+
+        //then
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
 
 //    @Test

@@ -19,62 +19,54 @@ public class ActorController {
     private ArrayList<Actor> npcList;
     private Player player;
 
-    public ActorController(){
+    public ActorController() {
         moveSubcontroller = new MoveSubcontroller();
         combatSubcontroller = new CombatSubcontroller();
         interactionSubcontroller = new InteractionSubcontroller();
     }
 
-    public void initNPCsMatrix(int x, int y){
+    public void initNPCsMatrix(int x, int y) {
         npcList = new ArrayList<>();
         actorMatrix = new Actor[x][y];
     }
 
-    public void setPlayer(Player player){
+    public void setPlayer(Player player) {
         this.player = player;
         actorMatrix[player.getX()][player.getY()] = player;
     }
 
-    public void takePlayerTurn(MovementDir moveDir){
+    public void takePlayerTurn(MovementDir moveDir) {
         Player player = GameController.getInstance().getPlayer();
         moveDir = moveSubcontroller.applyMovementModifiers(player, moveDir);
-        if (!Util.cellIsOutOfMap(player.getX()+ moveDir.getDx(), player.getY()+moveDir.getDy())) {
-            Cell targetCell = player.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
-
+        Cell targetCell = player.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
+        if (combatSubcontroller.checkPlayerCombat(targetCell, actorMatrix, player))
+            return;
+        if (!Util.cellIsOutOfMap(player.getX() + moveDir.getDx(), player.getY() + moveDir.getDy())) {
             switch (targetCell.getType()) {
                 case INTERACTION -> interactionSubcontroller.playerInteract(targetCell, player, moveDir);
-                case WALKABLE -> playerFightOrMove(targetCell, moveDir);
+                case WALKABLE -> moveSubcontroller.moveActor(player, moveDir);
             }
         }
     }
 
-    private void playerFightOrMove(Cell targetCell, MovementDir moveDir){
-        Actor npc = actorMatrix[targetCell.getX()][targetCell.getY()];
-        if (npc != null){
-            combatSubcontroller.resolveActorsCombat(player, npc);
-        } else {
-            moveSubcontroller.moveActor(player, moveDir);
-        }
-    }
-
-    public void takeAllNPCTurn(){
-        for(Actor npc : npcList){
+    public void takeAllNPCTurn() {
+        for (Actor npc : npcList) {
             if (npc.isAlive())
                 takeNPCTurn(npc);
         }
     }
 
-    private void takeNPCTurn(Actor npc){
+    private void takeNPCTurn(Actor npc) {
         Mob mob = (Mob) npc;
         MovementDir moveDir = mob.getPotentialMoveDirection();
-        if (!Util.cellIsOutOfMap(npc.getX()+ moveDir.getDx(), npc.getY()+moveDir.getDy())){
+        if (!Util.cellIsOutOfMap(npc.getX() + moveDir.getDx(), npc.getY() + moveDir.getDy())) {
             Cell targetCell = npc.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
             npcFightOrMove(npc, targetCell, moveDir);
         }
     }
 
-    private void npcFightOrMove(Actor npc, Cell targetCell, MovementDir moveDir){
-        if (targetCell.getX() == player.getX() && targetCell.getY() == player.getY()){
+    private void npcFightOrMove(Actor npc, Cell targetCell, MovementDir moveDir) {
+        if (targetCell.getX() == player.getX() && targetCell.getY() == player.getY()) {
             combatSubcontroller.resolveActorsCombat(npc, player);
         } else if (moveSubcontroller.moveToWalkableCell(targetCell) && moveSubcontroller.moveToVacantCell(targetCell)) {
             moveSubcontroller.moveActor(npc, moveDir);
@@ -90,7 +82,7 @@ public class ActorController {
         clearPlayerCorpse();
     }
 
-    private void clearNpcCorpses(){
+    private void clearNpcCorpses() {
         ArrayList<Actor> npcListCopy = new ArrayList<>(npcList);
         for (Actor actor : npcListCopy) {
             if (!actor.isAlive())
@@ -98,30 +90,30 @@ public class ActorController {
         }
     }
 
-    private void clearPlayerCorpse(){
-        if (!player.isAlive()){
+    private void clearPlayerCorpse() {
+        if (!player.isAlive()) {
             actorMatrix[player.getX()][player.getY()] = null;
         }
     }
 
-    public void addNpcToController(int x, int y, Actor actor){
+    public void addNpcToController(int x, int y, Actor actor) {
         actorMatrix[x][y] = actor;
         npcList.add(actor);
     }
 
-    public void removeNpcFromController(int x, int y, Actor actor){
+    public void removeNpcFromController(int x, int y, Actor actor) {
         actorMatrix[x][y] = null;
         npcList.remove(actor);
-        if(actor.isMinion()){
+        if (actor.isMinion()) {
             removeMinion((Minion) actor);
         }
     }
 
-    private void removeMinion(Minion actor){
+    private void removeMinion(Minion actor) {
         actor.getMaster().getMinions().remove(actor);
     }
 
-    public void resolveActorTimedEffects(){
+    public void resolveActorTimedEffects() {
         player.resolveEffects();
         ArrayList<Actor> npcListCopy = new ArrayList<>(npcList);
         for (Actor npc : npcListCopy) {
