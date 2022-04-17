@@ -19,6 +19,10 @@ public class Tiles {
         tileMap.put("tree6", new Tile(5, 1));
         tileMap.put("tree7", new Tile(3, 2));
         tileMap.put("tree8", new Tile(4, 2));
+        tileMap.put("weed1", new Tile(5, 0));
+        tileMap.put("weed2", new Tile(6, 0));
+        tileMap.put("weed3", new Tile(7, 0));
+        tileMap.put("weed4", new Tile(0, 2));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("opened golden door", new Tile(12, 11));
         tileMap.put("closed golden door", new Tile(13, 11));
