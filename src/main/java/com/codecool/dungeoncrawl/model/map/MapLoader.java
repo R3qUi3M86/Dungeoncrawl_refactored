@@ -5,10 +5,7 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
 import com.codecool.dungeoncrawl.display.cells.*;
-import com.codecool.dungeoncrawl.model.actors.Demon;
-import com.codecool.dungeoncrawl.model.actors.Rat;
-import com.codecool.dungeoncrawl.model.actors.Skeleton;
-import com.codecool.dungeoncrawl.model.actors.Warlock;
+import com.codecool.dungeoncrawl.model.actors.*;
 import com.codecool.dungeoncrawl.model.decor.Shrine;
 import com.codecool.dungeoncrawl.model.decor.SpiderWeb;
 import com.codecool.dungeoncrawl.model.items.*;
@@ -143,6 +140,11 @@ public class MapLoader {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             actorController.addNpcToController(x, y, new Demon(cell));
+                        }
+                        case 'K' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Cow(cell));
                         }
                         case 'm' -> {
                             cell.setType(CellType.WALKABLE);
