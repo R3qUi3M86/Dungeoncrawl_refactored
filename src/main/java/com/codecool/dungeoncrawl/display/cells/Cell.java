@@ -52,6 +52,13 @@ public class Cell implements Drawable {
                 case 6 -> this.imageType = CellImage.TREE7;
                 case 7 -> this.imageType = CellImage.TREE8;
             }
+        } else if (imageType == CellImage.FLOOR) {
+            switch (rndImgID){
+                case 0, 4 -> this.imageType = CellImage.WEED1;
+                case 1, 5 -> this.imageType = CellImage.WEED2;
+                case 2, 6 -> this.imageType = CellImage.WEED3;
+                case 3, 7 -> this.imageType = CellImage.WEED4;
+            }
         } else {
             this.imageType = imageType;
         }

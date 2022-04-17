@@ -54,6 +54,13 @@ public class MapLoader {
                                 default -> {cell.setImageType(CellImage.WALL);}
                             }
                         }
+                        case ',' -> {
+                            cell.setType(CellType.WALKABLE);
+                            switch (cellRenderType){
+                                case FOREST -> {cell.setForestImageType(CellImage.FLOOR);}
+                                default -> {cell.setImageType(CellImage.FLOOR);}
+                            }
+                        }
                         case 'Z' -> {
                             cell.setType(CellType.INTERACTION);
                             cell.setImageType(CellImage.CLOSED_DOOR);
