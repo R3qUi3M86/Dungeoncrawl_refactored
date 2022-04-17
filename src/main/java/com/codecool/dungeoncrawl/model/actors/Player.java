@@ -11,7 +11,7 @@ import com.codecool.dungeoncrawl.model.items.backpack.SmallBackpack;
 import java.util.Objects;
 
 public class Player extends Actor {
-    private int maxHealth = 15; // put values into constructor
+    private int maxHealth = 20; // put values into constructor
     Backpack backpack = new SmallBackpack();
     private int drunkCounter = 0;
     private int drunkLimit = 20;
@@ -21,7 +21,7 @@ public class Player extends Actor {
     public Player(Cell cell) {
         super(cell);
         this.attack = 5;
-        this.health = 150;
+        this.health = 20;
     }
 
     public void eatFood(int heal) {

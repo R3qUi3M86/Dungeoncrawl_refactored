@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class MapLoader {
-    private static final String[] mapNames = new String[]{"/map1.txt", "/map2.txt", "/map3.txt", "/map4.txt", "/map5.txt"};
+    private static final String[] mapNames = new String[]{"/map1.txt", "/map3.txt", "/map3.txt", "/map4.txt", "/map5.txt"};
     private static int width;
     private static int height;
 
