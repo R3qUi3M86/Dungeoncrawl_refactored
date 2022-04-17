@@ -44,21 +44,23 @@ public class MapLoader {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
                         case ' ' -> {
-                            cell.setType(CellType.ILLEGAL);
+                            switch (cellRenderType){
+                                case FOREST -> cell.setType(CellType.WALKABLE);
+                                default -> cell.setType(CellType.ILLEGAL);}
                             cell.setImageType(CellImage.EMPTY);
                         }
                         case '#' -> {
                             cell.setType(CellType.COLLISION);
                             switch (cellRenderType){
-                                case FOREST -> {cell.setForestImageType(CellImage.WALL);}
-                                default -> {cell.setImageType(CellImage.WALL);}
+                                case FOREST -> cell.setForestImageType(CellImage.WALL);
+                                default -> cell.setImageType(CellImage.WALL);
                             }
                         }
                         case ',' -> {
                             cell.setType(CellType.WALKABLE);
                             switch (cellRenderType){
-                                case FOREST -> {cell.setForestImageType(CellImage.FLOOR);}
-                                default -> {cell.setImageType(CellImage.FLOOR);}
+                                case FOREST -> cell.setForestImageType(CellImage.FLOOR);
+                                default -> cell.setImageType(CellImage.FLOOR);
                             }
                         }
                         case 'Z' -> {
