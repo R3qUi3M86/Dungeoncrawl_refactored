@@ -44,10 +44,18 @@ public class MapLoader {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
                         case ' ' -> {
-                            switch (cellRenderType){
-                                case FOREST -> cell.setType(CellType.WALKABLE);
-                                default -> cell.setType(CellType.ILLEGAL);}
-                            cell.setImageType(CellImage.EMPTY);
+                            switch (cellRenderType) {
+                                case FOREST -> {
+                                    CellType cellType = getForestCellType(50);
+                                    cell.setType(cellType);
+                                    cell.setForestImageType(getForestImageType(cellType));
+                                }
+                                default -> {
+                                    cell.setType(CellType.ILLEGAL);
+                                    cell.setImageType(CellImage.EMPTY);
+                                }
+                            }
+
                         }
                         case '#' -> {
                             cell.setType(CellType.COLLISION);
@@ -191,6 +199,28 @@ public class MapLoader {
             return CellRenderType.FOREST;
         } else {
             return CellRenderType.DUNGEON;
+        }
+    }
+
+    private static CellType getForestCellType(int walkableProb){
+        int random = (int)(Math.random()*100);
+        if (random < walkableProb){
+            return CellType.WALKABLE;
+        } else {
+            return CellType.COLLISION;
+        }
+    }
+
+    private static CellImage getForestImageType(CellType cellType){
+        if (cellType.equals(CellType.WALKABLE)){
+            int choice = (int)(Math.random()*2);
+            if (choice == 0){
+                return CellImage.FLOOR;
+            } else {
+                return CellImage.EMPTY;
+            }
+        } else {
+            return CellImage.WALL;
         }
     }
 
