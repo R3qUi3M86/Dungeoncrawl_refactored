@@ -2,7 +2,9 @@ package com.codecool.dungeoncrawl.model.decor;
 
 public enum DecorType {
     SPIDER_WEB("spiderweb"),
-    SHRINE("shrine");;
+    SHRINE("shrine"),
+    SIGN_POST("sign post"),
+    TREE_TRUNK("tree trunk");
 
     private final String tileName;
 

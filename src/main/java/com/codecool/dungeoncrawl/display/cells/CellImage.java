@@ -16,6 +16,7 @@ public enum CellImage {
     WEED2("weed2"),
     WEED3("weed3"),
     WEED4("weed4"),
+    SIGN_POST("sign post"),
     CLOSED_DOOR("closed door"),
     OPENED_DOOR("opened door"),
     STAIRS_UP("stairs up"),

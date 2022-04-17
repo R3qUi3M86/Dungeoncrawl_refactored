@@ -24,6 +24,8 @@ public class Tiles {
         tileMap.put("weed3", new Tile(7, 0));
         tileMap.put("weed4", new Tile(0, 2));
         tileMap.put("floor", new Tile(2, 0));
+        tileMap.put("tree trunk", new Tile(18, 6));
+        tileMap.put("sign post", new Tile(0, 7));
         tileMap.put("opened golden door", new Tile(12, 11));
         tileMap.put("closed golden door", new Tile(13, 11));
         tileMap.put("opened blue door", new Tile(2, 9));

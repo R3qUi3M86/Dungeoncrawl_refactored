@@ -7,7 +7,9 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.display.cells.*;
 import com.codecool.dungeoncrawl.model.actors.*;
 import com.codecool.dungeoncrawl.model.decor.Shrine;
+import com.codecool.dungeoncrawl.model.decor.SignPost;
 import com.codecool.dungeoncrawl.model.decor.SpiderWeb;
+import com.codecool.dungeoncrawl.model.decor.TreeTrunk;
 import com.codecool.dungeoncrawl.model.items.*;
 
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class MapLoader {
-    private static final String[] mapNames = new String[]{"/map1.txt", "/map3.txt", "/map3.txt", "/map4.txt", "/map5.txt"};
+    private static final String[] mapNames = new String[]{"/map1.txt", "/map2.txt", "/map3.txt", "/map4.txt", "/map5.txt"};
     private static int width;
     private static int height;
 
@@ -132,6 +134,16 @@ public class MapLoader {
                             cell.setType(CellType.INTERACTION);
                             cell.setImageType(CellImage.DECORATION);
                             decorController.addDecorToController(x, y, new Shrine(cell));
+                        }
+                        case 'T' -> {
+                            cell.setType(CellType.COLLISION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new SignPost(cell));
+                        }
+                        case 'P' -> {
+                            cell.setType(CellType.COLLISION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new TreeTrunk(cell));
                         }
                         case 'E' -> {
                             cell.setType(CellType.WALKABLE);
