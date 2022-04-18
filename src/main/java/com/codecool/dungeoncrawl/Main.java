@@ -13,9 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SceneController sceneController = new SceneController();
-        sceneController.showMainMenu();
-
-
+        GameController.getInstance().initGame();
+        ViewController.getInstance().initWindow(primaryStage);
+        GameController.getInstance().startGame();
     }
 }
