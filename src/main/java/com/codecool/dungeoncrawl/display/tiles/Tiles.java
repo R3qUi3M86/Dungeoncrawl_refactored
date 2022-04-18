@@ -37,6 +37,10 @@ public class Tiles {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("spiderweb", new Tile(2, 15));
         tileMap.put("shrine", new Tile(1, 14));
+        tileMap.put("ace of hearts", new Tile(20, 16));
+        tileMap.put("ace of diamonds", new Tile(20, 17));
+        tileMap.put("ace of clubs", new Tile(20, 18));
+        tileMap.put("ace of spades", new Tile(20, 19));
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("rat", new Tile(31, 8));
         tileMap.put("skeleton", new Tile(29, 6));

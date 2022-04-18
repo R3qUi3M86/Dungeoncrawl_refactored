@@ -1,12 +1,14 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers;
 
 import com.codecool.dungeoncrawl.controller.GameController;
+import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.cells.CellImage;
 import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
+import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
 import com.codecool.dungeoncrawl.model.decor.Decor;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Key;
@@ -53,5 +55,13 @@ public class InteractionSubcontroller {
             player.eatFood(99999);
         }
         shrine.setUsed(true);
+    }
+
+    public void interactWithCard(CardPuzzle card){
+        System.out.println("sex");
+        card.switchPuzzleState();
+        if (GameController.getInstance().getDecorController().checkPuzzleSolved()){
+            System.out.println("super sex");
+        }
     }
 }

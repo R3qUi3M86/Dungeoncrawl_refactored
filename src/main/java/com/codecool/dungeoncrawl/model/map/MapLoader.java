@@ -6,10 +6,7 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
 import com.codecool.dungeoncrawl.display.cells.*;
 import com.codecool.dungeoncrawl.model.actors.*;
-import com.codecool.dungeoncrawl.model.decor.Shrine;
-import com.codecool.dungeoncrawl.model.decor.SignPost;
-import com.codecool.dungeoncrawl.model.decor.SpiderWeb;
-import com.codecool.dungeoncrawl.model.decor.TreeTrunk;
+import com.codecool.dungeoncrawl.model.decor.*;
 import com.codecool.dungeoncrawl.model.items.*;
 
 import java.io.InputStream;
@@ -72,6 +69,21 @@ public class MapLoader {
                                 case FOREST -> cell.setForestImageType(CellImage.FLOOR);
                                 default -> cell.setImageType(CellImage.FLOOR);
                             }
+                        }
+                        case '1' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new CardPuzzle(cell, 0));
+                        }
+                        case '2' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new CardPuzzle(cell, 1));
+                        }
+                        case '3' -> {
+                            cell.setType(CellType.INTERACTION);
+                            cell.setImageType(CellImage.DECORATION);
+                            decorController.addDecorToController(x, y, new CardPuzzle(cell, 2));
                         }
                         case 'Z' -> {
                             cell.setType(CellType.INTERACTION);

@@ -4,7 +4,8 @@ public enum DecorType {
     SPIDER_WEB("spiderweb"),
     SHRINE("shrine"),
     SIGN_POST("sign post"),
-    TREE_TRUNK("tree trunk");
+    TREE_TRUNK("tree trunk"),
+    CARD_PUZZLE("card puzzle");
 
     private final String tileName;
 

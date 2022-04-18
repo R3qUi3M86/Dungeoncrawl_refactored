@@ -5,8 +5,13 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
+import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
+import com.codecool.dungeoncrawl.model.decor.CardType;
 import com.codecool.dungeoncrawl.model.decor.Decor;
 import com.codecool.dungeoncrawl.model.decor.DecorType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DecorController {
     private Decor[][] decorMatrix;
@@ -27,6 +32,7 @@ public class DecorController {
         switch (decorType){
             case SPIDER_WEB -> interactionSubcontroller.interactWithSpiderWeb(movementDir, player);
             case SHRINE -> interactionSubcontroller.interactWithShrine(decor, player);
+            case CARD_PUZZLE -> interactionSubcontroller.interactWithCard((CardPuzzle) decor);
         }
     }
 
@@ -36,5 +42,31 @@ public class DecorController {
 
     public void setPlayer(Player player){
         this.player = player;
+    }
+
+    public boolean checkPuzzleSolved(){
+        ArrayList<CardPuzzle> cardPuzzles = new ArrayList<>();
+        for (Decor[] decorRow : decorMatrix){
+            System.out.println(Arrays.deepToString(decorMatrix));
+            for (Decor decor : decorRow){
+                if (decor.getDecorType().equals(DecorType.CARD_PUZZLE)){
+                    cardPuzzles.add((CardPuzzle) decor);
+                }
+            }
+        }
+        CardType firstCardType = null;
+        for (CardPuzzle cardPuzzle : cardPuzzles){
+            if (firstCardType == null){
+                firstCardType = cardPuzzle.getCardType();
+            } else {
+                if (cardPuzzle.getCardType() == firstCardType){
+                    return cardPuzzles.get(2).getCardType() == firstCardType;
+                } else {
+                    return false;
+                }
+
+            }
+        }
+        return false;
     }
 }
