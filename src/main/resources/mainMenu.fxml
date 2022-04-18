@@ -4,15 +4,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="714.0" prefWidth="1070.0" style="-fx-background-color: rgb(71, 45 ,60);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.controller.MenuController">
    <children>
-      <Button fx:id="newGameButton" layoutX="471.0" layoutY="265.0" mnemonicParsing="false" text="New Game">
+      <Button fx:id="newGameButton" layoutX="437.0" layoutY="231.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="164.0" text="New Game">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="loadGameButton" layoutX="497.0" layoutY="345.0" mnemonicParsing="false" text="Load Game" />
-      <Button fx:id="quitGameButton" layoutX="495.0" layoutY="405.0" mnemonicParsing="false" text="Leave Game" />
+      <Button fx:id="loadGameButton" layoutX="437.0" layoutY="313.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="164.0" text="Load Game" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <Button fx:id="quitGameButton" layoutX="437.0" layoutY="394.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" text="Leave Game">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
    </children>
 </AnchorPane>
