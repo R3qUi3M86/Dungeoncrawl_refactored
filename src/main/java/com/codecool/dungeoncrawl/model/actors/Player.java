@@ -14,7 +14,7 @@ public class Player extends Actor {
     private int maxHealth = 20; // put values into constructor
     Backpack backpack = new SmallBackpack();
     private int drunkCounter = 0;
-    private int drunkLimit = 20;
+    private int drunkLimit = 30;
     private boolean wasted = false;
     private boolean slowed = false;
 

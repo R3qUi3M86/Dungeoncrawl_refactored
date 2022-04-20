@@ -58,11 +58,9 @@ public class DecorController {
                         puzzleResultDTO.setSolved(true);
                         return puzzleResultDTO;
                     }
-
                 }
                 puzzleResultDTO.setSolved(false);
                 return puzzleResultDTO;
-
             }
         }
         puzzleResultDTO.setSolved(false);

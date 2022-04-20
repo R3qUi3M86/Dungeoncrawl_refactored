@@ -5,11 +5,18 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.UserKeyboardInputController;
+import com.codecool.dungeoncrawl.display.cells.CellType;
+import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
+import com.codecool.dungeoncrawl.model.actors.Puzzler;
+import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
+import com.codecool.dungeoncrawl.model.items.GoldenKey;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 import com.codecool.dungeoncrawl.model.map.MapLoader;
 import com.codecool.dungeoncrawl.model.actors.Player;
 import javafx.scene.Scene;
+
+import java.util.ArrayList;
 
 public class GameController {
     private static GameController gameController;
@@ -92,6 +99,21 @@ public class GameController {
         buttonsController.setPlayerGUIButtons(player);
         ViewController.getInstance().getCamera().followPlayer(player);
         viewController.refresh(map, player);
+    }
+
+    public void solvePuzzle(){
+        for (Actor actor : actorController.getNpcList()){
+            if(actor instanceof Puzzler){
+                itemController.addItemToController(actor.getX(), actor.getY(), new GoldenKey(actor.getCell()));
+                actorController.getMoveSubcontroller().moveActor(actor, MovementDir.M_RIGHT);
+            }
+        }
+    }
+
+    public void disablePuzzle(ArrayList<CardPuzzle> cardPuzzles){
+        for (CardPuzzle card : cardPuzzles){
+            card.getCell().setType(CellType.WALKABLE);
+        }
     }
 
     public Player getPlayer(){

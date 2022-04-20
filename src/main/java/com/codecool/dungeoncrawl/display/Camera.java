@@ -12,7 +12,6 @@ public class Camera {
     private final int hMinDistance;
     private final int vMinDistance;
 
-
     public Camera(GameMap map, int[] targetField, int hRange, int vRange) {
         this.hRange = hRange;
         this.vRange = vRange;
@@ -73,8 +72,25 @@ public class Camera {
         } else if (vRange - playerInCameraY < cameraFollowDistanceY) {
             targetField[1] = targetField[1] - 1;
         }
+        if (player.isWasted()){
+            shakeCamera(targetField);
+        }
         setValidTargetField();
         setMatrixInView();
+    }
+
+    private void shakeCamera(int[] targetField){
+        int rndResult = (int) (Math.random()*9);
+        switch (rndResult){
+            case 1 -> targetField[0] = targetField[0] + 1;
+            case 2 -> targetField[0] = targetField[0] - 1;
+            case 3 -> targetField[1] = targetField[1] + 1;
+            case 4 -> targetField[1] = targetField[1] - 1;
+            case 5 -> {targetField[0] = targetField[0] + 1; targetField[1] = targetField[1] + 1;}
+            case 6 -> {targetField[0] = targetField[0] - 1; targetField[1] = targetField[1] + 1;}
+            case 7 -> {targetField[0] = targetField[0] + 1; targetField[1] = targetField[1] - 1;}
+            case 8 -> {targetField[0] = targetField[0] - 1; targetField[1] = targetField[1] - 1;}
+        }
     }
 
     public CameraField[][] getMatrixInView() {
