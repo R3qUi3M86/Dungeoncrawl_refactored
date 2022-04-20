@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.controller.ViewController;
+import com.codecool.dungeoncrawl.controller.MenuController;
+import com.codecool.dungeoncrawl.controller.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,8 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        GameController.getInstance().initGame();
-        ViewController.getInstance().initWindow(primaryStage);
-        GameController.getInstance().startGame();
+        SceneController sceneController = new SceneController(primaryStage);
+        sceneController.showMainMenu();
     }
 }

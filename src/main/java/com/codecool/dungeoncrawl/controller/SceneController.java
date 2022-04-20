@@ -1,14 +1,14 @@
 package com.codecool.dungeoncrawl.controller;
 
 import com.codecool.dungeoncrawl.Main;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
+import java.net.URL;
+import java.util.Objects;
 
 public class SceneController {
     public Scene menuScene;
@@ -23,7 +23,9 @@ public class SceneController {
 
     public void showMainMenu() {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(this.getClass().getResource("/fxml/mainMenu.fxml"));
+        URL location = Main.class.getResource("/mainMenu.fxml");
+        System.out.println(location);
+        fxmlLoader.setLocation(Main.class.getResource("/mainMenu.fxml"));
         loadScene(fxmlLoader);
         primaryStage.setScene(menuScene);
     }
