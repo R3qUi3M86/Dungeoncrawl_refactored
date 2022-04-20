@@ -18,7 +18,6 @@ import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
 import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
 import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InteractionSubcontroller {

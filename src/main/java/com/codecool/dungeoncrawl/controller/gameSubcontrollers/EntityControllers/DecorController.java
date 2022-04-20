@@ -12,7 +12,6 @@ import com.codecool.dungeoncrawl.model.decor.DecorType;
 import com.codecool.dungeoncrawl.model.dto.PuzzleResultDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DecorController {
     private Decor[][] decorMatrix;
