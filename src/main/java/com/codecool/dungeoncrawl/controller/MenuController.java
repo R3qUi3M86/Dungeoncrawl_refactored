@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.controller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,15 +11,16 @@ import java.io.IOException;
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class MenuController {
-    public Button loadGameButton;
-    public Button quitGameButton;
-    public Button newGameButton;
-    public Stage primaryStage;
-    public Scene menuScene;
+    @FXML
+    private Button loadGameButton;
+    @FXML
+    private Button quitGameButton;
+    @FXML
+    private Button newGameButton;
 
+    private Stage primaryStage;
 
-    public MenuController(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public void initialize(){
         newGameButton.setOnAction(e -> newGame());
         loadGameButton.setOnAction(e -> loadGame());
         quitGameButton.setOnAction(e -> quitGame());
@@ -31,8 +33,15 @@ public class MenuController {
     }
 
     public void loadGame() {
+        //TODO
     }
 
     public void quitGame() {
+        System.exit(0);
     }
+
+    public void setPrimaryStage(Stage stage){
+        this.primaryStage = stage;
+    }
+
 }
