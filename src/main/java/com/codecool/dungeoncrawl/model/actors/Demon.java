@@ -21,6 +21,6 @@ public class Demon extends Warlock{
     @Override
     void killActor() {
         super.killActor();
-        GameController.getInstance().getItemController().getItemMatrix()[this.getX()][this.getY()] = new GoldenKey(this.getCell());
+        GameController.getInstance().getItemController().addItemToController(this.getX(), this.getY(), new GoldenKey(this.getCell()));
     }
 }

@@ -1,21 +1,24 @@
 package com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers;
 
 import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.cells.CellImage;
 import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
+import com.codecool.dungeoncrawl.model.actors.Puzzler;
 import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
 import com.codecool.dungeoncrawl.model.decor.Decor;
+import com.codecool.dungeoncrawl.model.dto.PuzzleResultDTO;
+import com.codecool.dungeoncrawl.model.items.GoldenKey;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Key;
 import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
 import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
 import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InteractionSubcontroller {
@@ -58,10 +61,26 @@ public class InteractionSubcontroller {
     }
 
     public void interactWithCard(CardPuzzle card){
-        System.out.println("sex");
         card.switchPuzzleState();
-        if (GameController.getInstance().getDecorController().checkPuzzleSolved()){
-            System.out.println("super sex");
+        PuzzleResultDTO puzzleResultDTO = GameController.getInstance().getDecorController().checkPuzzleSolved();
+        if (puzzleResultDTO.isSolved()){
+            solvePuzzle();
+            disablePuzzle(puzzleResultDTO.getCardPuzzles());
+        }
+    }
+
+    private void solvePuzzle(){
+        for (Actor actor : GameController.getInstance().getActorController().getNpcList()){
+            if(actor instanceof Puzzler){
+                GameController.getInstance().getItemController().addItemToController(actor.getX(), actor.getY(), new GoldenKey(actor.getCell()));
+                GameController.getInstance().getActorController().getMoveSubcontroller().moveActor(actor, MovementDir.M_RIGHT);
+            }
+        }
+    }
+
+    private void disablePuzzle(ArrayList<CardPuzzle> cardPuzzles){
+        for (CardPuzzle card : cardPuzzles){
+            card.getCell().setType(CellType.WALKABLE);
         }
     }
 }

@@ -9,6 +9,7 @@ import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
 import com.codecool.dungeoncrawl.model.decor.CardType;
 import com.codecool.dungeoncrawl.model.decor.Decor;
 import com.codecool.dungeoncrawl.model.decor.DecorType;
+import com.codecool.dungeoncrawl.model.dto.PuzzleResultDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +45,31 @@ public class DecorController {
         this.player = player;
     }
 
-    public boolean checkPuzzleSolved(){
+    public PuzzleResultDTO checkPuzzleSolved(){
+        ArrayList<CardPuzzle> cardPuzzles = getCardPuzzleList();
+        PuzzleResultDTO puzzleResultDTO = new PuzzleResultDTO(cardPuzzles);
+        CardType firstCardType = null;
+        for (CardPuzzle cardPuzzle : cardPuzzles){
+            if (firstCardType == null){
+                firstCardType = cardPuzzle.getCardType();
+            } else {
+                if (cardPuzzle.getCardType() == firstCardType){
+                    if (cardPuzzles.get(2).getCardType() == firstCardType){
+                        puzzleResultDTO.setSolved(true);
+                        return puzzleResultDTO;
+                    }
+
+                }
+                puzzleResultDTO.setSolved(false);
+                return puzzleResultDTO;
+
+            }
+        }
+        puzzleResultDTO.setSolved(false);
+        return puzzleResultDTO;
+    }
+
+    private ArrayList<CardPuzzle> getCardPuzzleList(){
         ArrayList<CardPuzzle> cardPuzzles = new ArrayList<>();
         for (Decor[] decorRow : decorMatrix){
             for (Decor decor : decorRow){
@@ -53,19 +78,6 @@ public class DecorController {
                 }
             }
         }
-        CardType firstCardType = null;
-        for (CardPuzzle cardPuzzle : cardPuzzles){
-            if (firstCardType == null){
-                firstCardType = cardPuzzle.getCardType();
-            } else {
-                if (cardPuzzle.getCardType() == firstCardType){
-                    return cardPuzzles.get(2).getCardType() == firstCardType;
-                } else {
-                    return false;
-                }
-
-            }
-        }
-        return false;
+        return cardPuzzles;
     }
 }

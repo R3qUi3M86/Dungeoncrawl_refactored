@@ -187,6 +187,12 @@ public class MapLoader {
                             cell.setImageType(CellImage.FLOOR);
                             actorController.addNpcToController(x, y, new Cow(cell));
                         }
+
+                        case 'U' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            actorController.addNpcToController(x, y, new Puzzler(cell));
+                        }
                         case 'm' -> {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);

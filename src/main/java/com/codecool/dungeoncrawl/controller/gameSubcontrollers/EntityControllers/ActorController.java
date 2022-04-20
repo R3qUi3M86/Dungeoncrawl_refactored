@@ -121,6 +121,10 @@ public class ActorController {
         }
     }
 
+    public ArrayList<Actor> getNpcList() {
+        return npcList;
+    }
+
     public MoveSubcontroller getMoveSubcontroller() {
         return moveSubcontroller;
     }

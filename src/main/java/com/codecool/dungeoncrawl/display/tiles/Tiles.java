@@ -47,6 +47,7 @@ public class Tiles {
         tileMap.put("warlock", new Tile(24, 1));
         tileMap.put("demon", new Tile(27, 2));
         tileMap.put("cow", new Tile(27, 7));
+        tileMap.put("puzzler", new Tile(26, 9));
         tileMap.put("golden key", new Tile(16, 23));
         tileMap.put("blue key", new Tile(17, 23));
         tileMap.put("red key", new Tile(18, 23));
