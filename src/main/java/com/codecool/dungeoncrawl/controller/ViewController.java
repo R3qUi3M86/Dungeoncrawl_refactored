@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.controller;
 import com.codecool.dungeoncrawl.display.Camera;
 import com.codecool.dungeoncrawl.display.MapGUI;
 import com.codecool.dungeoncrawl.display.PlayerGUI;
-import com.codecool.dungeoncrawl.display.cells.CellRenderType;
 import com.codecool.dungeoncrawl.display.tiles.Tile;
 import com.codecool.dungeoncrawl.display.tiles.Tiles;
 import com.codecool.dungeoncrawl.display.Drawable;
