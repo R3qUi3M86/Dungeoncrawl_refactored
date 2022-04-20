@@ -47,9 +47,8 @@ public class DecorController {
     public boolean checkPuzzleSolved(){
         ArrayList<CardPuzzle> cardPuzzles = new ArrayList<>();
         for (Decor[] decorRow : decorMatrix){
-            System.out.println(Arrays.deepToString(decorMatrix));
             for (Decor decor : decorRow){
-                if (decor.getDecorType().equals(DecorType.CARD_PUZZLE)){
+                if (decor!=null && decor.getDecorType().equals(DecorType.CARD_PUZZLE)){
                     cardPuzzles.add((CardPuzzle) decor);
                 }
             }
