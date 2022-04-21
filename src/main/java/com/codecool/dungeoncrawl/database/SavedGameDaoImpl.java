@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.model.actors.Player;
 import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
-import java.util.Arrays;
 
 public class SavedGameDaoImpl implements SavedGameDao{
     private final DataSource dataSource;

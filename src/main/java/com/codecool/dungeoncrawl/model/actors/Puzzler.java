@@ -1,8 +1,5 @@
 package com.codecool.dungeoncrawl.model.actors;
-
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
-import com.codecool.dungeoncrawl.model.items.GoldenKey;
 
 public class Puzzler extends Actor implements Mob{
     public Puzzler(Cell cell) {
