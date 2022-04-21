@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
 import com.codecool.dungeoncrawl.model.items.backpack.BackpackCell;
 import com.codecool.dungeoncrawl.model.items.backpack.SmallBackpack;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Player extends Actor {

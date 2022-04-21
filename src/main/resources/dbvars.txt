@@ -1,0 +1,4 @@
+DBNAME=dungeoncrawl
+USER=Req-dungeoncrawl-codecool
+PASS=ONE123ONE
+HOST=localhost

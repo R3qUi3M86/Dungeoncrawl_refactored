@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.display.cells;
 
-public enum CellType {
+import java.io.Serializable;
+
+public enum CellType implements Serializable {
     ILLEGAL,
     WALKABLE,
     COLLISION,

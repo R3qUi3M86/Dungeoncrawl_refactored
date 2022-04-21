@@ -1,8 +1,18 @@
 package com.codecool.dungeoncrawl.controller;
 
+import com.codecool.dungeoncrawl.database.*;
+import com.codecool.dungeoncrawl.model.actors.Actor;
+import com.codecool.dungeoncrawl.model.actors.Player;
+import com.codecool.dungeoncrawl.model.decor.Decor;
+import com.codecool.dungeoncrawl.model.items.Item;
+import com.codecool.dungeoncrawl.model.map.GameMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 public class MenuController {
     @FXML
@@ -27,7 +37,16 @@ public class MenuController {
     }
 
     public void loadGame() {
-        //TODO
+//        GameController.getInstance().initGame(savedGame.getPlayer());
+        try {
+            DataSource dataSource = new DbManager().connect();
+            SavedGameDao savedGameDao = new SavedGameDaoImpl(dataSource);
+            SavedGameRepository savedGameRepository = new SavedGameRepositoryImpl(savedGameDao);
+            SavedGame savedGame = savedGameRepository.get(3);
+            System.out.println(savedGame);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void quitGame() {

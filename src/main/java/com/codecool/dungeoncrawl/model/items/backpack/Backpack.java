@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.model.items.backpack;
 
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.items.Item;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

@@ -4,7 +4,9 @@ import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.Drawable;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 
-public class Cell implements Drawable {
+import java.io.Serializable;
+
+public class Cell implements Drawable, Serializable {
     private CellType type;
     private CellImage imageType = CellImage.EMPTY;
     private final int x;

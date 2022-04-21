@@ -1,8 +1,9 @@
 package com.codecool.dungeoncrawl.model.items.backpack;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class BackpackCell {
+public class BackpackCell implements Serializable {
     private final int x;
     private final int y;
 

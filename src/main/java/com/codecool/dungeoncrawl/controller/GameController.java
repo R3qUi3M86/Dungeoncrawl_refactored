@@ -59,8 +59,18 @@ public class GameController {
         ViewController.getInstance().setCamera();
     }
 
+    public void initGame(Player player){
+        map = MapLoader.loadMap(currentMapNumber);
+        this.player = player;
+        actorController.setPlayer(player);
+        itemController.setPlayer(player);
+        decorController.setPlayer(player);
+        ViewController.getInstance().setCamera();
+    }
+
     public void addPlayerInputListeners(Scene scene) {
         scene.setOnKeyPressed(userInputController::onSoberKeyPressed); //find way to remove key pressed listeners after player dead
+        scene.setOnKeyPressed(userInputController::saveGameKeyPressed);
         buttonsController.setGUIButtonsEventHandlers();
     }
 

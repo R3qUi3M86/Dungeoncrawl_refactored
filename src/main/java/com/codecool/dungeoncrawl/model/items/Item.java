@@ -4,7 +4,9 @@ import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.Drawable;
 import com.codecool.dungeoncrawl.model.actors.Player;
 
-public abstract class Item implements Drawable {
+import java.io.Serializable;
+
+public abstract class Item implements Drawable, Serializable {
     boolean consumable = false;
 
     private Cell cell;

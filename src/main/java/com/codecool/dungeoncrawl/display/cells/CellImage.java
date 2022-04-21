@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.display.cells;
 
-public enum CellImage {
+import java.io.Serializable;
+
+public enum CellImage implements Serializable {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),

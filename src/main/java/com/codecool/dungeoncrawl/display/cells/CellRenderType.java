@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.display.cells;
 
-public enum CellRenderType {
+import java.io.Serializable;
+
+public enum CellRenderType implements Serializable {
     DUNGEON, FOREST, HOUSE
 }

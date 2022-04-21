@@ -3,7 +3,9 @@ package com.codecool.dungeoncrawl.display.cells;
 import com.codecool.dungeoncrawl.display.Drawable;
 import com.codecool.dungeoncrawl.model.items.Key;
 
-public class Door implements Drawable {
+import java.io.Serializable;
+
+public class Door implements Drawable, Serializable {
     private boolean open = false;
     private final DoorType doorType;
 

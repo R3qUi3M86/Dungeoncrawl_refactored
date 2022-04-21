@@ -4,7 +4,9 @@ import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.cells.CellRenderType;
 import com.codecool.dungeoncrawl.display.cells.CellType;
 
-public class GameMap {
+import java.io.Serializable;
+
+public class GameMap implements Serializable {
     private final int width;
     private final int height;
     private final Cell[][] cells;

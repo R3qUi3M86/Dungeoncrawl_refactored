@@ -3,7 +3,9 @@ package com.codecool.dungeoncrawl.model.actors;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.Drawable;
 
-public abstract class Actor implements Drawable {
+import java.io.Serializable;
+
+public abstract class Actor implements Drawable, Serializable {
     private Cell cell;
     int health;
     int attack;
