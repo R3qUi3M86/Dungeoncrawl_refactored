@@ -42,8 +42,8 @@ public class MenuController {
             DataSource dataSource = new DbManager().connect();
             SavedGameDao savedGameDao = new SavedGameDaoImpl(dataSource);
             SavedGameRepository savedGameRepository = new SavedGameRepositoryImpl(savedGameDao);
-            SavedGame savedGame = savedGameRepository.get(3);
-            System.out.println(savedGame);
+            SavedGame savedGame = savedGameRepository.get(2);
+            System.out.println(savedGame); // TODO
         } catch (SQLException e){
             e.printStackTrace();
         }

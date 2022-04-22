@@ -70,7 +70,6 @@ public class GameController {
 
     public void addPlayerInputListeners(Scene scene) {
         scene.setOnKeyPressed(userInputController::onSoberKeyPressed); //find way to remove key pressed listeners after player dead
-        scene.setOnKeyPressed(userInputController::saveGameKeyPressed);
         buttonsController.setGUIButtonsEventHandlers();
     }
 

@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.database;
 
 public class SavedGameRepositoryImpl implements SavedGameRepository{
-    private SavedGameDao userDaoImpl;
+    private final SavedGameDao userDaoImpl;
 
     public SavedGameRepositoryImpl(SavedGameDao savedGameDao){
         userDaoImpl = savedGameDao;
@@ -23,7 +23,7 @@ public class SavedGameRepositoryImpl implements SavedGameRepository{
     }
 
     @Override
-    public void remove(SavedGame savedGame) {
-        userDaoImpl.delete(savedGame);
+    public void remove(int id) {
+        userDaoImpl.delete(id);
     }
 }
