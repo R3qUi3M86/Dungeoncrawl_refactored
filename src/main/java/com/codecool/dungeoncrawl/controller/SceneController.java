@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class SceneController {
@@ -11,7 +12,7 @@ public class SceneController {
     private final Stage primaryStage;
     private MenuController menuController;
 
-    public SceneController(Stage primaryStage){
+    public SceneController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 

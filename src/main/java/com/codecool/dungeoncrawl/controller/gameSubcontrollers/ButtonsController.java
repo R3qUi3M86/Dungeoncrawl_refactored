@@ -23,7 +23,7 @@ public class ButtonsController {
         enterButton.setOnAction(e -> enterEventHandler());
     }
 
-    public void setPlayerGUIButtons(Player player){
+    public void setPlayerGUIButtons(Player player) {
         setPickUpButton();
         setUseItButton();
         setEnterButton(player);
@@ -53,7 +53,7 @@ public class ButtonsController {
         GameController.getInstance().playTurn(MovementDir.M_NONE);
     }
 
-    private void enterEventHandler(){
+    private void enterEventHandler() {
         GameController.getInstance().travelToNextLevel();
     }
 }

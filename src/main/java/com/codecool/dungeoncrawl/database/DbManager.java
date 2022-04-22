@@ -1,10 +1,12 @@
 package com.codecool.dungeoncrawl.database;
+
 import org.postgresql.ds.PGSimpleDataSource;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class DbManager {
-    public DataSource connect() throws SQLException{
+    public DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setDatabaseName("dungeon");
         dataSource.setUser("wika-dungeon");

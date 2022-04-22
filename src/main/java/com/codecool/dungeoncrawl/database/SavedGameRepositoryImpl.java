@@ -1,9 +1,9 @@
 package com.codecool.dungeoncrawl.database;
 
-public class SavedGameRepositoryImpl implements SavedGameRepository{
+public class SavedGameRepositoryImpl implements SavedGameRepository {
     private final SavedGameDao userDaoImpl;
 
-    public SavedGameRepositoryImpl(SavedGameDao savedGameDao){
+    public SavedGameRepositoryImpl(SavedGameDao savedGameDao) {
         userDaoImpl = savedGameDao;
     }
 

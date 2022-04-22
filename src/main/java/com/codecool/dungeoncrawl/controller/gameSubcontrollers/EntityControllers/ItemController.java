@@ -9,11 +9,11 @@ public class ItemController {
     private Item[][] itemMatrix;
     private Player player;
 
-    public void initItemMatrix(int x, int y){
+    public void initItemMatrix(int x, int y) {
         itemMatrix = new Item[x][y];
     }
 
-    public void pickUpItem(){
+    public void pickUpItem() {
         Player player = GameController.getInstance().getPlayer();
         Item item = itemMatrix[player.getX()][player.getY()];
         OperationResult pickUpResult = player.getBackpack().addItem(item);
@@ -22,18 +22,18 @@ public class ItemController {
         }
     }
 
-    public void useItem(){
+    public void useItem() {
         Player player = GameController.getInstance().getPlayer();
         Item item = itemMatrix[player.getX()][player.getY()];
         item.useItem(player);
         itemMatrix[player.getX()][player.getY()] = null;
     }
 
-    public void addItemToController(int x, int y, Item item){
+    public void addItemToController(int x, int y, Item item) {
         itemMatrix[x][y] = item;
     }
 
-    public Item getItemAtPlayerLocation(){
+    public Item getItemAtPlayerLocation() {
         return itemMatrix[player.getX()][player.getY()];
     }
 
@@ -41,7 +41,11 @@ public class ItemController {
         return itemMatrix;
     }
 
-    public void setPlayer(Player player){
+    public void setItemMatrix(Item[][] itemMatrix) {
+        this.itemMatrix = itemMatrix;
+    }
+
+    public void setPlayer(Player player) {
         this.player = player;
     }
 }

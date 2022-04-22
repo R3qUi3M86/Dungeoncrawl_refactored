@@ -28,7 +28,7 @@ public class PlayerGUI {
     private Button useItButton;
     private Button enterButton;
 
-    public void initPlayerGUI(){
+    public void initPlayerGUI() {
         this.ui = new GridPane();
         pickUpButton = new Button("Pick up");
         useItButton = new Button("Use");
@@ -68,7 +68,7 @@ public class PlayerGUI {
         ui.add(useItButton, 1, 4, 2, 1);
     }
 
-    public void drawPlayerGui(Player player){
+    public void drawPlayerGui(Player player) {
         updateHealth(player.getHealth());
         drawBackpack(player.getBackpack());
     }

@@ -9,7 +9,6 @@ import com.codecool.dungeoncrawl.model.decor.Decor;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import javax.sql.DataSource;
@@ -52,7 +51,9 @@ public class UserKeyboardInputController {
             Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
             Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
             GameMap gameMap = GameController.getInstance().getMap();
-            savedGameRepository.add(new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap));
+            if (savedGameRepository.get(1) == null)
+                savedGameRepository.add(new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap));
+            else savedGameRepository.update(new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap));
         } catch (SQLException e) {
             e.printStackTrace();
         }

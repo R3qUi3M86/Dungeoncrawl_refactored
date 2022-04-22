@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.Player;
 
-public class Booze extends Item{
+public class Booze extends Item {
     public Booze(Cell cell) {
         super(cell);
         setConsumable();

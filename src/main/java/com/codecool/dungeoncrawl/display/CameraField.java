@@ -4,7 +4,7 @@ public class CameraField {
     private final int X;
     private final int Y;
 
-    public CameraField(int X, int Y){
+    public CameraField(int X, int Y) {
         this.X = X;
         this.Y = Y;
     }

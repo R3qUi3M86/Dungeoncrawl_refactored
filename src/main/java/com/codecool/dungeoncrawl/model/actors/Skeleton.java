@@ -30,7 +30,7 @@ public class Skeleton extends Actor implements Mob, Minion{
             moveTimer++;
         } else {
             moveTimer = 0;
-            return GameController.getInstance().getActorController().getMoveSubcontroller().moveInRandomDirection(moves);
+            return GameController.getInstance().getActorController().getMoveController().moveInRandomDirection(moves);
         }
         return MovementDir.M_NONE;
     }

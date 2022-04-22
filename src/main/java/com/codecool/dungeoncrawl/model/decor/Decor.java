@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.model.decor;
 
+import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.Drawable;
-import com.codecool.dungeoncrawl.model.actors.Player;
 
 import java.io.Serializable;
 
@@ -35,4 +35,8 @@ public abstract class Decor implements Drawable, Serializable {
     }
 
     public abstract DecorType getDecorType();
+
+    public void updateCell() {
+        this.cell = GameController.getInstance().getMap().getCell(getX(), getY());
+    }
 }

@@ -2,10 +2,9 @@ package com.codecool.dungeoncrawl.model.dto;
 
 import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PuzzleResultDTO implements Serializable {
+public class PuzzleResultDTO {
     private boolean solved;
     private ArrayList<CardPuzzle> cardPuzzles;
 

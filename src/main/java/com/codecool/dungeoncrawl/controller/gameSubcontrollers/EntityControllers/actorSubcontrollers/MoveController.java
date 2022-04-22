@@ -11,7 +11,7 @@ import com.codecool.dungeoncrawl.model.decor.Decor;
 
 import java.util.List;
 
-public class MoveSubcontroller {
+public class MoveController {
 
     public void moveActor(Actor actor, MovementDir movementDir) {
         Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
@@ -48,9 +48,13 @@ public class MoveSubcontroller {
             int x = targetCell.getX();
             int y = targetCell.getY();
             Decor decor = GameController.getInstance().getDecorController().getDecorMatrix()[x][y];
-            switch (decor.getDecorType()){
-                case SPIDER_WEB -> { return true; }
-                default -> { return false; }
+            switch (decor.getDecorType()) {
+                case SPIDER_WEB -> {
+                    return true;
+                }
+                default -> {
+                    return false;
+                }
             }
         }
         return false;

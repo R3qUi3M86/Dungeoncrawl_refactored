@@ -9,13 +9,13 @@ public class Door implements Drawable, Serializable {
     private boolean open = false;
     private final DoorType doorType;
 
-    public Door(DoorType doorType){
+    public Door(DoorType doorType) {
         this.doorType = doorType;
     }
 
     @Override
     public String getCellImageName() {
-        if (open){
+        if (open) {
             return "opened " + doorType.getName();
         } else {
             return "closed " + doorType.getName();

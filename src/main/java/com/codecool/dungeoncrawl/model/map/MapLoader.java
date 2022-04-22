@@ -35,7 +35,7 @@ public class MapLoader {
         itemController.initItemMatrix(width, height);
         decorController.initDecorMatrix(width, height);
 
-        GameMap map = new GameMap(width, height, CellType.ILLEGAL, cellRenderType);
+        GameMap map = new GameMap(width, height, CellType.ILLEGAL, cellRenderType, mapNumber);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {
@@ -58,14 +58,14 @@ public class MapLoader {
                         }
                         case '#' -> {
                             cell.setType(CellType.COLLISION);
-                            switch (cellRenderType){
+                            switch (cellRenderType) {
                                 case FOREST -> cell.setForestImageType(CellImage.WALL);
                                 default -> cell.setImageType(CellImage.WALL);
                             }
                         }
                         case ',' -> {
                             cell.setType(CellType.WALKABLE);
-                            switch (cellRenderType){
+                            switch (cellRenderType) {
                                 case FOREST -> cell.setForestImageType(CellImage.FLOOR);
                                 default -> cell.setImageType(CellImage.FLOOR);
                             }
@@ -221,30 +221,30 @@ public class MapLoader {
         return map;
     }
 
-    private static CellRenderType getMapCellRenderType(Scanner scanner){
+    private static CellRenderType getMapCellRenderType(Scanner scanner) {
         String mapType = scanner.nextLine();
-        if(Objects.equals(mapType, "D")){
+        if (Objects.equals(mapType, "D")) {
             return CellRenderType.DUNGEON;
-        } else if (Objects.equals(mapType, "F")){
+        } else if (Objects.equals(mapType, "F")) {
             return CellRenderType.FOREST;
         } else {
             return CellRenderType.DUNGEON;
         }
     }
 
-    private static CellType getForestCellType(int walkableProb){
-        int random = (int)(Math.random()*100);
-        if (random < walkableProb){
+    private static CellType getForestCellType(int walkableProb) {
+        int random = (int) (Math.random() * 100);
+        if (random < walkableProb) {
             return CellType.WALKABLE;
         } else {
             return CellType.COLLISION;
         }
     }
 
-    private static CellImage getForestImageType(CellType cellType){
-        if (cellType.equals(CellType.WALKABLE)){
-            int choice = (int)(Math.random()*2);
-            if (choice == 0){
+    private static CellImage getForestImageType(CellType cellType) {
+        if (cellType.equals(CellType.WALKABLE)) {
+            int choice = (int) (Math.random() * 2);
+            if (choice == 0) {
                 return CellImage.FLOOR;
             } else {
                 return CellImage.EMPTY;

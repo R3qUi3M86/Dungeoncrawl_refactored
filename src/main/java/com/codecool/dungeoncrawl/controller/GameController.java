@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.DecorController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.ItemController;
 import com.codecool.dungeoncrawl.controller.gameSubcontrollers.UserKeyboardInputController;
+import com.codecool.dungeoncrawl.database.SavedGame;
 import com.codecool.dungeoncrawl.display.cells.CellType;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
@@ -25,12 +26,12 @@ public class GameController {
     private final DecorController decorController;
     private final ItemController itemController;
     private UserKeyboardInputController userInputController;
-    private ButtonsController buttonsController;
     public static int currentMapNumber = 0;
+    private ButtonsController buttonsController;
     private GameMap map;
     private Player player;
 
-    private GameController(){
+    private GameController() {
         viewController = ViewController.getInstance();
         this.buttonsController = new ButtonsController(
                 viewController.getPlayerGUI().getPickUpButton(),
@@ -43,14 +44,14 @@ public class GameController {
         itemController = new ItemController();
     }
 
-    public static GameController getInstance(){
-        if (gameController == null){
+    public static GameController getInstance() {
+        if (gameController == null) {
             gameController = new GameController();
         }
         return gameController;
     }
 
-    public void initGame(){
+    public void initGame() {
         map = MapLoader.loadMap(currentMapNumber);
         player = new Player(map.getPlayerStartingCell());
         actorController.setPlayer(player);
@@ -59,24 +60,36 @@ public class GameController {
         ViewController.getInstance().setCamera();
     }
 
-    public void initGame(Player player){
-        map = MapLoader.loadMap(currentMapNumber);
-        this.player = player;
-        actorController.setPlayer(player);
+    public void initGame(SavedGame savedGame) {
+        map = savedGame.gameMap();
+        currentMapNumber = map.getCurrentMapNumber();
+        this.player = savedGame.player();
+        actorController.setPlayer(savedGame);
         itemController.setPlayer(player);
         decorController.setPlayer(player);
         ViewController.getInstance().setCamera();
+        GameController.getInstance().getActorController().setNpcList();
+
     }
 
     public void addPlayerInputListeners(Scene scene) {
-        scene.setOnKeyPressed(userInputController::onSoberKeyPressed); //find way to remove key pressed listeners after player dead
+        scene.setOnKeyPressed(userInputController::onSoberKeyPressed);
         buttonsController.setGUIButtonsEventHandlers();
     }
 
-    public void startGame(){
+    public void startGame() {
         this.userInputController = new UserKeyboardInputController(viewController.getCurrentScene());
         addPlayerInputListeners(viewController.getCurrentScene());
         viewController.refresh(map, player);
+    }
+
+    public void startGame(SavedGame savedGame) {
+        this.userInputController = new UserKeyboardInputController(viewController.getCurrentScene());
+        addPlayerInputListeners(viewController.getCurrentScene());
+        itemController.setItemMatrix(savedGame.itemMatrix());
+        decorController.setDecorMatrix(savedGame.decorMatrix());
+        GameController.getInstance().getDecorController().updateDecors();
+        viewController.refresh(savedGame);
     }
 
     public void playTurn(MovementDir movementDir) {
@@ -91,17 +104,17 @@ public class GameController {
         }
     }
 
-    private void resolveTimedEffects(){
+    private void resolveTimedEffects() {
         actorController.resolveActorTimedEffects();
     }
 
-    private void setNextMap(){
+    private void setNextMap() {
         currentMapNumber++;
         map = MapLoader.loadMap(currentMapNumber);
         ViewController.getInstance().setCamera();
     }
 
-    public void travelToNextLevel(){
+    public void travelToNextLevel() {
         setNextMap();
         player.setCell(map.getPlayerStartingCell());
         actorController.setPlayer(player);
@@ -110,22 +123,34 @@ public class GameController {
         viewController.refresh(map, player);
     }
 
-    public void solvePuzzle(){
-        for (Actor actor : actorController.getNpcList()){
-            if(actor instanceof Puzzler){
+    public void solvePuzzle() {
+        for (Actor actor : actorController.getNpcList()) {
+            if (actor instanceof Puzzler) {
                 itemController.addItemToController(actor.getX(), actor.getY(), new GoldenKey(actor.getCell()));
-                actorController.getMoveSubcontroller().moveActor(actor, MovementDir.M_RIGHT);
+                actorController.getMoveController().moveActor(actor, MovementDir.M_RIGHT);
             }
         }
     }
 
-    public void disablePuzzle(ArrayList<CardPuzzle> cardPuzzles){
-        for (CardPuzzle card : cardPuzzles){
+    public void disablePuzzle(ArrayList<CardPuzzle> cardPuzzles) {
+        for (CardPuzzle card : cardPuzzles) {
             card.getCell().setType(CellType.WALKABLE);
         }
     }
 
-    public Player getPlayer(){
+    public ArrayList<Actor> createNPCList(Actor[][] actorMatrix) {
+        ArrayList<Actor> npcList = new ArrayList<>();
+        for (Actor[] actors : actorMatrix) {
+            for (Actor actor : actors) {
+                if (actor != null && !(actor instanceof Player)) {
+                    npcList.add(actor);
+                }
+            }
+        }
+        return npcList;
+    }
+
+    public Player getPlayer() {
         return player;
     }
 

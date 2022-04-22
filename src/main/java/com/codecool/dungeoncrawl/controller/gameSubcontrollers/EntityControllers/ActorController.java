@@ -2,27 +2,28 @@ package com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityController
 
 import com.codecool.dungeoncrawl.Util;
 import com.codecool.dungeoncrawl.controller.GameController;
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.CombatSubcontroller;
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.InteractionSubcontroller;
-import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.MoveSubcontroller;
+import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.CombatController;
+import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.InteractionController;
+import com.codecool.dungeoncrawl.controller.gameSubcontrollers.EntityControllers.actorSubcontrollers.MoveController;
+import com.codecool.dungeoncrawl.database.SavedGame;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.*;
 
 import java.util.ArrayList;
 
 public class ActorController {
-    private final MoveSubcontroller moveSubcontroller;
-    private final CombatSubcontroller combatSubcontroller;
-    private final InteractionSubcontroller interactionSubcontroller;
+    private final MoveController moveController;
+    private final CombatController combatController;
+    private final InteractionController interactionController;
 
     private Actor[][] actorMatrix;
     private ArrayList<Actor> npcList;
     private Player player;
 
     public ActorController() {
-        moveSubcontroller = new MoveSubcontroller();
-        combatSubcontroller = new CombatSubcontroller();
-        interactionSubcontroller = new InteractionSubcontroller();
+        moveController = new MoveController();
+        combatController = new CombatController();
+        interactionController = new InteractionController();
     }
 
     public void initNPCsMatrix(int x, int y) {
@@ -35,16 +36,26 @@ public class ActorController {
         actorMatrix[player.getX()][player.getY()] = player;
     }
 
+    public void setPlayer(SavedGame savedGame) {
+        this.player = savedGame.player();
+        actorMatrix = savedGame.actorMatrix();
+        actorMatrix[player.getX()][player.getY()] = player;
+    }
+
+    public void setNpcList() {
+        this.npcList = GameController.getInstance().createNPCList(actorMatrix);
+    }
+
     public void takePlayerTurn(MovementDir moveDir) {
         Player player = GameController.getInstance().getPlayer();
-        moveDir = moveSubcontroller.applyMovementModifiers(player, moveDir);
+        moveDir = moveController.applyMovementModifiers(player, moveDir);
         Cell targetCell = player.getCell().getNeighboringCell(moveDir.getDx(), moveDir.getDy());
-        if (combatSubcontroller.checkPlayerCombat(targetCell, actorMatrix, player))
+        if (combatController.checkPlayerCombat(targetCell, actorMatrix, player))
             return;
         if (!Util.cellIsOutOfMap(player.getX() + moveDir.getDx(), player.getY() + moveDir.getDy())) {
             switch (targetCell.getType()) {
-                case INTERACTION -> interactionSubcontroller.playerInteract(targetCell, player, moveDir);
-                case WALKABLE -> moveSubcontroller.moveActor(player, moveDir);
+                case INTERACTION -> interactionController.playerInteract(targetCell, player, moveDir);
+                case WALKABLE -> moveController.moveActor(player, moveDir);
             }
         }
     }
@@ -67,9 +78,9 @@ public class ActorController {
 
     private void npcFightOrMove(Actor npc, Cell targetCell, MovementDir moveDir) {
         if (targetCell.getX() == player.getX() && targetCell.getY() == player.getY()) {
-            combatSubcontroller.resolveActorsCombat(npc, player);
-        } else if (moveSubcontroller.moveToWalkableCell(targetCell) && moveSubcontroller.moveToVacantCell(targetCell)) {
-            moveSubcontroller.moveActor(npc, moveDir);
+            combatController.resolveActorsCombat(npc, player);
+        } else if (moveController.moveToWalkableCell(targetCell) && moveController.moveToVacantCell(targetCell)) {
+            moveController.moveActor(npc, moveDir);
         }
     }
 
@@ -125,11 +136,11 @@ public class ActorController {
         return npcList;
     }
 
-    public MoveSubcontroller getMoveSubcontroller() {
-        return moveSubcontroller;
+    public MoveController getMoveController() {
+        return moveController;
     }
 
-    public InteractionSubcontroller getInteractionSubcontroller() {
-        return interactionSubcontroller;
+    public InteractionController getInteractionController() {
+        return interactionController;
     }
 }

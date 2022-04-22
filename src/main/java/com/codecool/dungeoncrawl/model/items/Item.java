@@ -15,7 +15,8 @@ public abstract class Item implements Drawable, Serializable {
         this.cell = cell;
     }
 
-    public Item() {}
+    public Item() {
+    }
 
     public Cell getCell() {
         return cell;
@@ -29,7 +30,8 @@ public abstract class Item implements Drawable, Serializable {
         return cell.getY();
     }
 
-    public void useItem(Player player) {}
+    public void useItem(Player player) {
+    }
 
     public boolean isConsumable() {
         return consumable;

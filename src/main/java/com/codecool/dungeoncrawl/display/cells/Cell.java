@@ -38,13 +38,13 @@ public class Cell implements Drawable, Serializable {
         this.type = type;
     }
 
-    public void setImageType(CellImage imageType){
+    public void setImageType(CellImage imageType) {
         this.imageType = imageType;
     }
 
-    public void setForestImageType(CellImage imageType){
-        if (imageType == CellImage.WALL){
-            switch (rndImgID){
+    public void setForestImageType(CellImage imageType) {
+        if (imageType == CellImage.WALL) {
+            switch (rndImgID) {
                 case 0 -> this.imageType = CellImage.TREE1;
                 case 1 -> this.imageType = CellImage.TREE2;
                 case 2 -> this.imageType = CellImage.TREE3;
@@ -55,7 +55,7 @@ public class Cell implements Drawable, Serializable {
                 case 7 -> this.imageType = CellImage.TREE8;
             }
         } else if (imageType == CellImage.FLOOR) {
-            switch (rndImgID){
+            switch (rndImgID) {
                 case 0, 4 -> this.imageType = CellImage.WEED1;
                 case 1, 5 -> this.imageType = CellImage.WEED2;
                 case 2, 6 -> this.imageType = CellImage.WEED3;

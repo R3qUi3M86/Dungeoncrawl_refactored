@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.map.GameMap;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+
 import java.util.ArrayList;
 
 public class Util {
@@ -44,7 +45,7 @@ public class Util {
         return adjacentCells;
     }
 
-    public static boolean cellIsOutOfMap(int x, int y){
+    public static boolean cellIsOutOfMap(int x, int y) {
         GameMap map = GameController.getInstance().getMap();
         int mapWidth = map.getWidth();
         int mapHeight = map.getHeight();

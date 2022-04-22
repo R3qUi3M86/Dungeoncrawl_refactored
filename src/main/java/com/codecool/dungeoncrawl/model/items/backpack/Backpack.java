@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.model.items.backpack;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.items.Item;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,11 +15,12 @@ public abstract class Backpack extends Item {
         super(cell);
     }
 
-    public Backpack() {}
+    public Backpack() {
+    }
 
-    public OperationResult addItem(Item item){
-        for (int i = 0; i < capacity[0]; i++){
-            for (int j = 0; j < capacity[1]; j++){
+    public OperationResult addItem(Item item) {
+        for (int i = 0; i < capacity[0]; i++) {
+            for (int j = 0; j < capacity[1]; j++) {
                 BackpackCell backpackCell = new BackpackCell(i, j);
                 if (Objects.equals(backpackItems.get(backpackCell).getCellImageName(), "empty")) {
                     backpackItems.put(backpackCell, item);

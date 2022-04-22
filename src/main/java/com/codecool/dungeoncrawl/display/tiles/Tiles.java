@@ -56,7 +56,6 @@ public class Tiles {
         tileMap.put("booze", new Tile(16, 30));
     }
 
-
     public static Map<String, Tile> getTileMap() {
         return tileMap;
     }
@@ -64,6 +63,7 @@ public class Tiles {
     public static Map<String, Tile> getHouseTileMap() {
         return tileMap;
     }
+
     public static Image getTileset() {
         return tileset;
     }

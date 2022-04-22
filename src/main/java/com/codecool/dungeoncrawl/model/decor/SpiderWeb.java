@@ -13,7 +13,7 @@ public class SpiderWeb extends Decor {
         return DecorType.SPIDER_WEB.toString();
     }
 
-    public DecorType getDecorType(){
+    public DecorType getDecorType() {
         return DecorType.SPIDER_WEB;
     }
 

@@ -41,8 +41,7 @@ public class CardPuzzle extends Decor {
 
     public void switchPuzzleState() {
         puzzleState += 1;
-        if (puzzleState > 2)
-            puzzleState = 0;
+        if (puzzleState > 2) puzzleState = 0;
     }
 
     public void setOtherCards(ArrayList<CardPuzzle> otherCards) {

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.controller;
 
+import com.codecool.dungeoncrawl.database.SavedGame;
 import com.codecool.dungeoncrawl.display.Camera;
 import com.codecool.dungeoncrawl.display.MapGUI;
 import com.codecool.dungeoncrawl.display.PlayerGUI;
@@ -57,6 +58,12 @@ public class ViewController {
         borderPane.requestFocus();
     }
 
+    public void refresh(SavedGame savedGame) {
+        refreshPlayerGUI(savedGame.player());
+        refreshMapGUI(savedGame);
+        borderPane.requestFocus();
+    }
+
     private void refreshMapGUI(GameMap gameMap) {
         Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
         Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
@@ -65,14 +72,21 @@ public class ViewController {
         mapGUI.drawMap(gameMap, actorMatrix, itemMatrix, decorMatrix, camera);
     }
 
+    private void refreshMapGUI(SavedGame savedGame) {
+        Actor[][] actorMatrix = GameController.getInstance().getActorController().getActorMatrix();
+        Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
+        Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
+        camera.moveAsRequired(GameController.getInstance().getPlayer());
+        mapGUI.drawMap(savedGame.gameMap(), actorMatrix, itemMatrix, decorMatrix, camera);
+    }
+
     private void refreshPlayerGUI(Player player) {
         playerGUI.drawPlayerGui(player);
     }
 
     public void drawTile(GraphicsContext context, Drawable d, int x, int y) {
         Tile tile = Tiles.getTileMap().get(d.getCellImageName());
-        context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h,
-                x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
+        context.drawImage(Tiles.getTileset(), tile.x, tile.y, tile.w, tile.h, x * Tile.TILE_WIDTH, y * Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_WIDTH);
     }
 
     public void setCamera() {

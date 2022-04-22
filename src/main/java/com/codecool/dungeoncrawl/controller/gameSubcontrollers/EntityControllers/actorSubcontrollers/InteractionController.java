@@ -4,14 +4,11 @@ import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.display.cells.CellImage;
 import com.codecool.dungeoncrawl.display.cells.CellType;
-import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.MovementDir;
 import com.codecool.dungeoncrawl.model.actors.Player;
-import com.codecool.dungeoncrawl.model.actors.Puzzler;
 import com.codecool.dungeoncrawl.model.decor.CardPuzzle;
 import com.codecool.dungeoncrawl.model.decor.Decor;
 import com.codecool.dungeoncrawl.model.dto.PuzzleResultDTO;
-import com.codecool.dungeoncrawl.model.items.GoldenKey;
 import com.codecool.dungeoncrawl.model.items.Item;
 import com.codecool.dungeoncrawl.model.items.Key;
 import com.codecool.dungeoncrawl.model.items.backpack.Backpack;
@@ -20,7 +17,7 @@ import com.codecool.dungeoncrawl.model.items.backpack.EmptySpace;
 
 import java.util.Arrays;
 
-public class InteractionSubcontroller {
+public class InteractionController {
     public void playerInteract(Cell targetCell, Player player, MovementDir movementDir) {
         CellImage cellImage = targetCell.getImageType();
         switch (cellImage) {
@@ -46,7 +43,7 @@ public class InteractionSubcontroller {
     }
 
     public void interactWithSpiderWeb(MovementDir movementDir, Player player) {
-        GameController.getInstance().getActorController().getMoveSubcontroller().moveActor(player, movementDir);
+        GameController.getInstance().getActorController().getMoveController().moveActor(player, movementDir);
         if (movementDir != MovementDir.M_NONE)
             player.setSlowed(true);
     }
@@ -59,10 +56,10 @@ public class InteractionSubcontroller {
         shrine.setUsed(true);
     }
 
-    public void interactWithCard(CardPuzzle card){
+    public void interactWithCard(CardPuzzle card) {
         card.switchPuzzleState();
         PuzzleResultDTO puzzleResultDTO = GameController.getInstance().getDecorController().checkPuzzleSolved();
-        if (puzzleResultDTO.isSolved()){
+        if (puzzleResultDTO.isSolved()) {
             GameController.getInstance().solvePuzzle();
             GameController.getInstance().disablePuzzle(puzzleResultDTO.getCardPuzzles());
         }

@@ -12,11 +12,13 @@ public class GameMap implements Serializable {
     private final Cell[][] cells;
     private int[] playerStartingPosition;
     private final CellRenderType renderType;
+    private final int currentMapNumber;
 
-    public GameMap(int width, int height, CellType defaultCellType, CellRenderType renderType) {
+    public GameMap(int width, int height, CellType defaultCellType, CellRenderType renderType, int currentMapNumber) {
         this.width = width;
         this.height = height;
         this.renderType = renderType;
+        this.currentMapNumber = currentMapNumber;
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -37,8 +39,11 @@ public class GameMap implements Serializable {
         return height;
     }
 
+    public int getCurrentMapNumber() {
+        return currentMapNumber;
+    }
 
-    public Cell getPlayerStartingCell(){
+    public Cell getPlayerStartingCell() {
         return cells[playerStartingPosition[0]][playerStartingPosition[1]];
     }
 

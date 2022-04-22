@@ -10,25 +10,13 @@ import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
 
-public class SavedGameDaoImpl implements SavedGameDao {
-    private final DataSource dataSource;
-
-    public SavedGameDaoImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+public record SavedGameDaoImpl(DataSource dataSource) implements SavedGameDao {
 
     @Override
     public void create(SavedGame savedGame) {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO saved_games (player, actor_matrix, item_matrix, decor_matrix, game_map) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            st.setBytes(1, serializeObject(savedGame.getPlayer()));
-            st.setBytes(2, serializeObject(savedGame.getActorMatrix()));
-            st.setBytes(3, serializeObject(savedGame.getItemMatrix()));
-            st.setBytes(4, serializeObject(savedGame.getDecorMatrix()));
-            st.setBytes(5, serializeObject(savedGame.getGameMap()));
-            st.executeUpdate();
+            setSQLParameters(savedGame, connection, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,15 +31,15 @@ public class SavedGameDaoImpl implements SavedGameDao {
             ResultSet queryResult = st.executeQuery();
             if (queryResult.next()) {
                 byte[] playerBytes = queryResult.getBytes("player");
-                Player player = deserializePlayer(playerBytes);
+                Player player = (Player) deserializeObject(playerBytes);
                 byte[] actorMatrixBytes = queryResult.getBytes("actor_matrix");
-                Actor[][] actorMatrix = deserializeActorMatrix(actorMatrixBytes);
+                Actor[][] actorMatrix = (Actor[][]) deserializeObject(actorMatrixBytes);
                 byte[] itemMatrixBytes = queryResult.getBytes("item_matrix");
-                Item[][] itemMatrix = deserializeItemMatrix(itemMatrixBytes);
+                Item[][] itemMatrix = (Item[][]) deserializeObject(itemMatrixBytes);
                 byte[] decorMatrixBytes = queryResult.getBytes("decor_matrix");
-                Decor[][] decorMatrix = deserializeDecorMatrix(decorMatrixBytes);
+                Decor[][] decorMatrix = (Decor[][]) deserializeObject(decorMatrixBytes);
                 byte[] gameMapBytes = queryResult.getBytes("game_map");
-                GameMap map = deserializeGameMap(gameMapBytes);
+                GameMap map = (GameMap) deserializeObject(gameMapBytes);
                 return new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, map);
             }
         } catch (SQLException | IOException | ClassNotFoundException e) {
@@ -62,6 +50,12 @@ public class SavedGameDaoImpl implements SavedGameDao {
 
     @Override
     public void update(SavedGame savedGame) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE saved_games SET " + "player=?, actor_matrix=?, item_matrix=?, decor_matrix=?, game_map=? WHERE id=1";
+            setSQLParameters(savedGame, connection, sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -78,9 +72,19 @@ public class SavedGameDaoImpl implements SavedGameDao {
         }
     }
 
+    private void setSQLParameters(SavedGame savedGame, Connection connection, String sql) throws SQLException {
+        PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        st.setBytes(1, serializeObject(savedGame.player()));
+        st.setBytes(2, serializeObject(savedGame.actorMatrix()));
+        st.setBytes(3, serializeObject(savedGame.itemMatrix()));
+        st.setBytes(4, serializeObject(savedGame.decorMatrix()));
+        st.setBytes(5, serializeObject(savedGame.gameMap()));
+        st.executeUpdate();
+    }
+
     private byte[] serializeObject(Object player) {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             oos.writeObject(player);
             return bos.toByteArray();
         } catch (IOException i) {
@@ -89,35 +93,10 @@ public class SavedGameDaoImpl implements SavedGameDao {
         }
     }
 
-    private Player deserializePlayer(byte[] bytes) throws IOException, ClassNotFoundException {
+    private Object deserializeObject(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         ObjectInputStream is = new ObjectInputStream(in);
-        return (Player) is.readObject();
+        return is.readObject();
     }
 
-    private Actor[][] deserializeActorMatrix(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return ((Actor[][]) is.readObject());
-    }
-
-
-    private Item[][] deserializeItemMatrix(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return ((Item[][]) is.readObject());
-    }
-
-
-    private Decor[][] deserializeDecorMatrix(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return ((Decor[][]) is.readObject());
-    }
-
-    private GameMap deserializeGameMap(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return ((GameMap) is.readObject());
-    }
 }

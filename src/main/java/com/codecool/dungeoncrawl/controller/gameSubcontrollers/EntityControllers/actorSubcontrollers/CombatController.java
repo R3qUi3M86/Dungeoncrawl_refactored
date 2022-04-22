@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.display.cells.Cell;
 import com.codecool.dungeoncrawl.model.actors.Actor;
 import com.codecool.dungeoncrawl.model.actors.Player;
 
-public class CombatSubcontroller {
+public class CombatController {
     public void resolveActorsCombat(Actor attacker, Actor defender) {
         if (attacker != defender) {
             defender.takeDamage(attacker.getAttack());
@@ -13,7 +13,7 @@ public class CombatSubcontroller {
         }
     }
 
-    public boolean checkPlayerCombat(Cell targetCell, Actor[][] actorMatrix, Player player){
+    public boolean checkPlayerCombat(Cell targetCell, Actor[][] actorMatrix, Player player) {
         Actor npc = actorMatrix[targetCell.getX()][targetCell.getY()];
         if (npc != null) {
             resolveActorsCombat(player, npc);
