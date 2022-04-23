@@ -52,6 +52,8 @@ public class Tiles {
         tileMap.put("blue key", new Tile(17, 23));
         tileMap.put("red key", new Tile(18, 23));
         tileMap.put("sword", new Tile(2, 28));
+        tileMap.put("sharp sword", new Tile(0, 30));
+        tileMap.put("shield", new Tile(6, 26));
         tileMap.put("meat", new Tile(16, 28));
         tileMap.put("booze", new Tile(16, 30));
     }

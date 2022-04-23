@@ -9,6 +9,7 @@ public abstract class Actor implements Drawable, Serializable {
     private Cell cell;
     int health;
     int attack;
+    int armor = 0;
     boolean minion = false;
     private boolean alive = true;
 
@@ -31,6 +32,10 @@ public abstract class Actor implements Drawable, Serializable {
 
     public int getHealth() {
         return health;
+    }
+
+    public int getArmor() {
+        return armor;
     }
 
     public Cell getCell() {

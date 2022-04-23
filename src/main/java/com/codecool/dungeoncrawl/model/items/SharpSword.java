@@ -2,20 +2,19 @@ package com.codecool.dungeoncrawl.model.items;
 
 import com.codecool.dungeoncrawl.display.cells.Cell;
 
-public class Sword extends Item implements Weapon{
-    int damageModifier = 5;
+public class SharpSword extends Item implements Weapon {
+    int damageModifier = 12;
 
-    public Sword(Cell cell) {
+    public SharpSword(Cell cell) {
         super(cell);
     }
 
     @Override
     public String getCellImageName() {
-        return "sword";
+        return "sharp sword";
     }
 
     public int getDamageModifier() {
         return damageModifier;
     }
-
 }

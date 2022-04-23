@@ -54,7 +54,6 @@ public class MapLoader {
                                     cell.setImageType(CellImage.EMPTY);
                                 }
                             }
-
                         }
                         case '#' -> {
                             cell.setType(CellType.COLLISION);
@@ -207,6 +206,16 @@ public class MapLoader {
                             cell.setType(CellType.WALKABLE);
                             cell.setImageType(CellImage.FLOOR);
                             itemController.addItemToController(x, y, new Sword(cell));
+                        }
+                        case 't' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            itemController.addItemToController(x, y, new SharpSword(cell));
+                        }
+                        case 'O' -> {
+                            cell.setType(CellType.WALKABLE);
+                            cell.setImageType(CellImage.FLOOR);
+                            itemController.addItemToController(x, y, new Shield(cell));
                         }
                         case '@' -> {
                             cell.setType(CellType.WALKABLE);

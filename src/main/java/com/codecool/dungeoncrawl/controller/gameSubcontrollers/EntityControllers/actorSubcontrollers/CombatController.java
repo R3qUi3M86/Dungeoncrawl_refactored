@@ -7,9 +7,9 @@ import com.codecool.dungeoncrawl.model.actors.Player;
 public class CombatController {
     public void resolveActorsCombat(Actor attacker, Actor defender) {
         if (attacker != defender) {
-            defender.takeDamage(attacker.getAttack());
+            defender.takeDamage(attacker.getAttack() - defender.getArmor());
             if (defender.isAlive())
-                attacker.takeDamage(defender.getAttack());
+                attacker.takeDamage(defender.getAttack() - attacker.getArmor());
         }
     }
 
