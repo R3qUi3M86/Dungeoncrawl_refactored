@@ -51,9 +51,10 @@ public class UserKeyboardInputController {
             Item[][] itemMatrix = GameController.getInstance().getItemController().getItemMatrix();
             Decor[][] decorMatrix = GameController.getInstance().getDecorController().getDecorMatrix();
             GameMap gameMap = GameController.getInstance().getMap();
+            SavedGame savedGame = new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap);
             if (savedGameRepository.get(1) == null)
-                savedGameRepository.add(new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap));
-            else savedGameRepository.update(new SavedGame(player, actorMatrix, itemMatrix, decorMatrix, gameMap));
+                savedGameRepository.add(savedGame);
+            else savedGameRepository.update(savedGame);
         } catch (SQLException e) {
             e.printStackTrace();
         }
